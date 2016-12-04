@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.jakewharton.rxbinding.view.RxView;
+import java.util.ArrayList;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +34,16 @@ public class MainActivity extends AppCompatActivity {
 
     Observable
         .just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        .subscribe(System.out::println);
+        .map(String::valueOf)
+        .forEach(this::addToArray);
   }
 
   public String multiple(int input) {
     return "Number is :"+input;
+  }
+
+  public <I extends String> void addToArray(I item) {
+    System.out.print(item);
   }
 
   public int print() {
