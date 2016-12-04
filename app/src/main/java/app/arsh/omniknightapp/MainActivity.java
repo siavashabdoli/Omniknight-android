@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textView = (TextView) findViewById(R.id.textView);
     RxView.clicks(textView).subscribe(t -> showMessage());
+
+    CacheManager cacheManager = new CacheManager();
+    cacheManager.addToCache(" Hello Wordl", "");
+    cacheManager.addToCache(" Hello Word2", this);
   }
 
   public void showMessage() {
