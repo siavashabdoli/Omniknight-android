@@ -1,14 +1,12 @@
 package app.arsh.omniknightapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.jakewharton.rxbinding.view.RxView;
-import java.util.ArrayList;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     CacheManager cacheManager = new CacheManager();
     cacheManager.addToCache(" Hello Wordl", "");
     cacheManager.addToCache(" Hello Word2", this);
+
+
   }
 
   public void showMessage() {
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         .just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         .map(String::valueOf)
         .forEach(this::addToArray);
+
+    RecyclerViewManager recyclerViewManager = new RecyclerViewManager(this);
   }
 
   public String multiple(int input) {
