@@ -26,7 +26,7 @@ public class RecyclerViewManager {
     }
 
     RecyclerView recyclerView = (RecyclerView) mainActivity.findViewById(R.id.sampleRecyclerView);
-    recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.VERTICAL, false));
+    recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     NormalStringAdapter normalStringAdapter = new NormalStringAdapter(adapterData);
     recyclerView.setAdapter(normalStringAdapter);
