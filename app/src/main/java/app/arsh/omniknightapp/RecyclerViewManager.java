@@ -1,6 +1,5 @@
 package app.arsh.omniknightapp;
 
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ public class RecyclerViewManager {
     }
 
     RecyclerView recyclerView = (RecyclerView) mainActivity.findViewById(R.id.sampleRecyclerView);
-    recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
-    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.VERTICAL, false));
+    recyclerView.setItemAnimator(new CustomItemAnimator());
     NormalStringAdapter normalStringAdapter = new NormalStringAdapter(adapterData);
     recyclerView.setAdapter(normalStringAdapter);
 
