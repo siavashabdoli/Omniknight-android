@@ -16,9 +16,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     TextView textView = (TextView) findViewById(R.id.textView);
-    RxView.clicks(textView).subscribe(t -> Toast.
-        makeText(getApplicationContext(), getString(R.string.app_name), Toast.LENGTH_LONG).
-        show());
+    RxView.clicks(textView).subscribe(t -> textView.setText("Hello Unit test!"));
 
   }
 }
