@@ -36,6 +36,7 @@ dependencies {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
   testCompile 'junit:junit:4.12'
+  testCompile "org.robolectric:robolectric:3.1.4"
 
   compile "com.android.support:appcompat-v7:$SupportLib"
   compile "com.android.support:support-v4:$SupportLib"
