@@ -16,44 +16,9 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     TextView textView = (TextView) findViewById(R.id.textView);
-    RxView.clicks(textView).subscribe(t -> showMessage());
+    RxView.clicks(textView).subscribe(t -> Toast.
+        makeText(getApplicationContext(), getString(R.string.app_name), Toast.LENGTH_LONG).
+        show());
 
-    CacheManager cacheManager = new CacheManager();
-    cacheManager.addToCache(" Hello Wordl", "");
-    cacheManager.addToCache(" Hello Word2", this);
-
-
-  }
-
-  public void showMessage() {
-    Toast.makeText(getApplicationContext(), "Hello World!", Toast.LENGTH_LONG).show();
-    Observable
-        .just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        .filter(integer -> integer % 2 == 0)
-        .map(this::multiple)
-        .takeUntil(integer -> integer.length() > 0)
-        .subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(System.out::println);
-
-    Observable
-        .just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        .map(String::valueOf)
-        .forEach(this::addToArray);
-
-    RecyclerViewManager recyclerViewManager = new RecyclerViewManager(this);
-  }
-
-  public String multiple(int input) {
-    return "Number is :"+input;
-  }
-
-  public <I extends String> void addToArray(I item) {
-    System.out.print(item);
-  }
-
-  public int print() {
-
-    return 0;
   }
 }
