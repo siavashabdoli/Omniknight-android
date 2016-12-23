@@ -30,6 +30,12 @@ ext {
   RxJava = '1.1.0'
 }
 
+configurations.all {
+  resolutionStrategy {
+    force 'com.android.support:support-annotations:25.0.0'
+  }
+}
+
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -45,6 +51,9 @@ dependencies {
   testCompile "org.powermock:powermock-module-junit4-rule:1.6.4"
   testCompile "org.powermock:powermock-api-mockito:1.6.4"
   testCompile "org.powermock:powermock-classloading-xstream:1.6.4"
+
+  androidTestCompile 'com.android.support.test:runner:0.5'
+  androidTestCompile 'com.android.support.test:rules:0.5'
 
   compile "com.android.support:appcompat-v7:$SupportLib"
   compile "com.android.support:support-v4:$SupportLib"
