@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 23)
 public class MainActivityUnitTest {
+
   @Test
   public void clickingButton_shouldChangeResultsViewText() throws Exception {
     MainActivity activity = Robolectric.setupActivity(MainActivity.class);
