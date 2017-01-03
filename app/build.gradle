@@ -42,19 +42,8 @@ dependencies {
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  testCompile 'junit:junit:4.12'
-  testCompile "org.robolectric:robolectric:3.1.4"
-  testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
-  testCompile "org.mockito:mockito-core:1.10.19"
-  testCompile 'org.robolectric:shadows-support-v4:3.0'
 
-  testCompile "org.powermock:powermock-module-junit4:1.6.4"
-  testCompile "org.powermock:powermock-module-junit4-rule:1.6.4"
-  testCompile "org.powermock:powermock-api-mockito:1.6.4"
-  testCompile "org.powermock:powermock-classloading-xstream:1.6.4"
 
-  androidTestCompile 'com.android.support.test:runner:0.5'
-  androidTestCompile 'com.android.support.test:rules:0.5'
 
   compile "com.android.support:appcompat-v7:$SupportLib"
   compile "com.android.support:support-v4:$SupportLib"
@@ -63,8 +52,22 @@ dependencies {
 
   compile "io.reactivex:rxjava:$RxJava"
   compile "io.reactivex:rxandroid:$RxJava"
-  compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 
+  compile "com.google.code.gson:gson:2.6.2"
+
+  compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+  compile 'com.android.support:support-v4:25.1.0'
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.robolectric:robolectric:3.1.4'
+  testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
+  testCompile 'org.mockito:mockito-core:1.10.19'
+  testCompile 'org.robolectric:shadows-support-v4:3.0'
+  testCompile 'org.powermock:powermock-module-junit4:1.6.4'
+  testCompile 'org.powermock:powermock-module-junit4-rule:1.6.4'
+  testCompile 'org.powermock:powermock-api-mockito:1.6.4'
+  testCompile 'org.powermock:powermock-classloading-xstream:1.6.4'
+  androidTestCompile 'com.android.support.test:runner:0.5'
+  androidTestCompile 'com.android.support.test:rules:0.5'
 }
 
 
