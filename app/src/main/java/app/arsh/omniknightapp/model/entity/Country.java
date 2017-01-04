@@ -679,7 +679,7 @@ public class Country implements Parcelable {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "DBCountry{" +
                 "name='" + name + '\'' +
                 ", alpha2Code='" + alpha2Code + '\'' +
                 ", alpha3Code='" + alpha3Code + '\'' +

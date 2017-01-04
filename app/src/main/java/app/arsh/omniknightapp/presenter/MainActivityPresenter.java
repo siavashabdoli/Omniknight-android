@@ -7,6 +7,7 @@ import app.arsh.omniknightapp.Omniknight;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -25,12 +26,13 @@ public class MainActivityPresenter extends BasePresenter {
     this.viewListener = viewListener;
     this.context = activity;
     ((Omniknight)activity.getApplication()).getDbCompnent().inject(this);
+    List<Country> countryList = dbClient.getCountries();
 
-    Country sample = new Country();
-    sample.setName("Sweden");
-    dbClient.addNewCountry(sample);
-
-    setupView();
+    if (countryList.size() == 0) {
+      viewListener.loadNoCityView();
+    } else {
+      setupView();
+    }
   }
 
   @Override public void setupView() {
@@ -43,5 +45,9 @@ public class MainActivityPresenter extends BasePresenter {
 
   @Override public void showProgressView() {
 
+  }
+
+  public DBClient getDbClient() {
+    return dbClient;
   }
 }
