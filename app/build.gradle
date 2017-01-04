@@ -36,6 +36,7 @@ ext {
   SupportLib = '25.1.0'
   RxJava = '1.1.0'
   daggerVersion = '2.7'
+  butterKnifeVersion = '8.0.1'
   javaxAnnotation = '1.0'
 }
 
@@ -54,6 +55,10 @@ dependencies {
   compile "com.android.support:support-v4:$SupportLib"
 
   compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+
+  //ButterKnife
+  apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+  compile "com.jakewharton:butterknife:$butterKnifeVersion"
 
   //Rx
   compile "io.reactivex:rxjava:$RxJava"

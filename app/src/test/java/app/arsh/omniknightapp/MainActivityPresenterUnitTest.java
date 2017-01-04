@@ -29,7 +29,8 @@ public class MainActivityPresenterUnitTest {
     mainActivityInterface = Mockito.mock(MainActivityInterface.class);
     mainActivity = Robolectric.setupActivity(MainActivity.class);
     presenter = new MainActivityPresenter(mainActivityInterface, mainActivity);
+
     if (presenter.getDbClient().getCountries().size() == 0) verify(mainActivityInterface).loadNoCityView();
-    else verify(mainActivityInterface).loadCities();
+    else verify(mainActivityInterface).loadCities(presenter.getDbClient().getCountries());
   }
 }
