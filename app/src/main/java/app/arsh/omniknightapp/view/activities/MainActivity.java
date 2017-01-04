@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     //RxView.clicks(textView).subscribe(t -> textView.setText("Hello Unit test!"));
 
     new MainActivityPresenter(this, this);
-  }
+  } 
 
   @Override public void loadCities() {
     ViewUtils.addFragment(getSupportFragmentManager(),new CityListFragment(), R.id.content_frame);
@@ -31,4 +31,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override public void loadErrorView() {
 
   }
+
 }

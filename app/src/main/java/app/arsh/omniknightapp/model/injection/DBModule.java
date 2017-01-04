@@ -1,5 +1,6 @@
 package app.arsh.omniknightapp.model.injection;
 
+import android.app.Application;
 import android.content.Context;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import dagger.Module;
@@ -13,20 +14,20 @@ import javax.inject.Singleton;
 @Module
 public class DBModule {
 
-  private final Context context;
+  private final Application application;
 
-  public DBModule (Context context) {
-    this.context = context;
+  public DBModule (Application application) {
+    this.application = application;
   }
 
   @Provides
-  public Context context() {
-    return context;
+  public Application application() {
+    return application;
   }
 
   @Provides
   @Singleton
-  DBClient getRealm(Context context) {
-    return new DBClient(context);
+  DBClient getDataBase(Application application) {
+    return new DBClient(application);
   }
 }

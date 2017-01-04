@@ -1,9 +1,11 @@
 package app.arsh.omniknightapp.model.repo.local;
 
-import android.content.Context;
-import app.arsh.omniknightapp.model.entity.Country;
-import io.realm.Realm;
-import java.util.List;
+import android.app.Application;
+import app.arsh.omniknightapp.model.repo.local.entity.Country;
+import app.arsh.omniknightapp.model.repo.local.entity.CountryDao;
+import app.arsh.omniknightapp.model.repo.local.entity.DaoMaster;
+import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
+import org.greenrobot.greendao.database.Database;
 
 /**
  * Created by arash on 10/24/16.
@@ -11,27 +13,33 @@ import java.util.List;
 
 public class DBClient {
 
-    private final Realm realm;
+    private final DaoSession daoSession;
 
-    public DBClient(Context context) {
-        Realm.init(context);
-        realm = Realm.getDefaultInstance();
+    public DBClient(Application application) {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(application, "weather-db");
+        Database db = helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
     }
 
-    public List<Country> getAvailableCountries(){
-        return new LocalCountryService().getLocalCountries(realm);
+    public void addNewCountry(Country country) {
+        CountryDao countryDao = daoSession.getCountryDao();
+        countryDao.insert(country);
     }
 
-    public Country getSpecificCounty(Country country){
-        return new LocalCountryService().getSpecificCountry(realm, country);
-    }
-
-    public void addNewCountry(Country country){
-        new LocalCountryService().addLocalCountry(realm, country);
-    }
-
-    public void removeCountry(Country country){
-        new LocalCountryService().removeCountry(realm, country);
-    }
+    //public List<Country> getAvailableCountries(){
+    //    return new LocalCountryService().getLocalCountries(realm);
+    //}
+    //
+    //public Country getSpecificCounty(Country country){
+    //    return new LocalCountryService().getSpecificCountry(realm, country);
+    //}
+    //
+    //public void addNewCountry(Country country){
+    //    new LocalCountryService().addLocalCountry(realm, country);
+    //}
+    //
+    //public void removeCountry(Country country){
+    //    new LocalCountryService().removeCountry(realm, country);
+    //}
 
 }

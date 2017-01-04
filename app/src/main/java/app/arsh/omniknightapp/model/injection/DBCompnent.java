@@ -1,5 +1,6 @@
 package app.arsh.omniknightapp.model.injection;
 
+import android.app.Application;
 import android.content.Context;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import dagger.Component;
@@ -13,7 +14,7 @@ import javax.inject.Singleton;
 @Component(modules = {DBModule.class})
 public interface DBCompnent {
 
-  Context context();
+  Application application();
 
   void inject(MainActivityPresenter presenter);
 }
