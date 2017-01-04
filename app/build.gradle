@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
   compileSdkVersion 25
@@ -59,6 +60,8 @@ dependencies {
   provided "javax.annotation:jsr250-api:$javaxAnnotation"
 
   compile "com.google.code.gson:gson:2.6.2"
+
+  compile 'org.greenrobot:greendao:3.2.0'
 
   compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
