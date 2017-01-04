@@ -5,8 +5,10 @@ import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.verify;
 
@@ -14,15 +16,18 @@ import static org.mockito.Mockito.verify;
  * Created by arash on 1/3/17.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 23, manifest = "/src/main/AndroidManifest.xml")
 public class MainActivityPresenterUnitTest {
 
-  @Mock MainActivityInterface mainActivityInterface;
-  @Mock MainActivity mainActivity;
+  MainActivityInterface mainActivityInterface;
+  MainActivity mainActivity;
   private MainActivityPresenter presenter;
 
   @Test
   public void testConstructorCallingLoadCities() {
+    mainActivityInterface = Mockito.mock(MainActivityInterface.class);
+    mainActivity = Robolectric.setupActivity(MainActivity.class);
     presenter = new MainActivityPresenter(mainActivityInterface, mainActivity);
     verify(mainActivityInterface).loadCities();
   }
