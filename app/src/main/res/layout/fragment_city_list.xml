@@ -16,13 +16,14 @@
       android:layout_centerHorizontal="true"
       />
   <TextView
-      android:text="Please select a country!"
+      android:text="@string/please_select_a_country"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@+id/imageViewNoCountry"
       android:id="@+id/noCountryTextView"
       android:layout_alignParentStart="true"
       android:layout_alignParentEnd="true"
+      android:textColor="@android:color/holo_blue_light"
       android:gravity="center"
       />
 

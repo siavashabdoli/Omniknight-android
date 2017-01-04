@@ -6,7 +6,7 @@ package app.arsh.omniknightapp.presenter;
 
 public abstract class BasePresenter {
 
-  public abstract void setupView();
-  public abstract void showErrorView();
-  public abstract void showProgressView();
+  protected abstract void setupView();
+  protected abstract void showErrorView();
+  protected abstract void showProgressView();
 }

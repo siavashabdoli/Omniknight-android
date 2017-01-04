@@ -36,19 +36,23 @@ public class MainActivityPresenter extends BasePresenter {
     }
   }
 
-  @Override public void setupView() {
+  @Override protected void setupView() {
     viewListener.loadCities(countryList);
   }
 
-  @Override public void showErrorView() {
+  @Override protected void showErrorView() {
 
   }
 
-  @Override public void showProgressView() {
+  @Override protected void showProgressView() {
 
   }
 
   public DBClient getDbClient() {
     return dbClient;
+  }
+
+  public void fabButtonClicked() {
+    viewListener.loadCountrySelectionMenu();
   }
 }

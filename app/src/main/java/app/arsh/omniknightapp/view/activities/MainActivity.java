@@ -1,25 +1,35 @@
 package app.arsh.omniknightapp.view.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import app.arsh.omniknightapp.view.fragments.CityListFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.jakewharton.rxbinding.view.RxView;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
+  @BindView(R.id.fab) FloatingActionButton fab;
+  private MainActivityPresenter presenter;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    ButterKnife.bind(this);
 
-    //TextView textView = (TextView) findViewById(R.id.textView);
-    //RxView.clicks(textView).subscribe(t -> textView.setText("Hello Unit test!"));
+    RxView.clicks(fab)
+        .subscribe(t ->
+            fabClicked());
 
-    new MainActivityPresenter(this, this);
+    presenter = new MainActivityPresenter(this, this);
   } 
 
   @Override public void loadCities(List<Country> countryList) {
@@ -36,6 +46,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   @Override public void loadErrorView() {
 
+  }
+
+  @Override public void loadCountrySelectionMenu() {
+
+  }
+
+  private void fabClicked() {
+    presenter.fabButtonClicked();
   }
 
 }

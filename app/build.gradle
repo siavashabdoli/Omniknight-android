@@ -53,6 +53,7 @@ dependencies {
   compile "com.android.support:support-v4:$SupportLib"
   compile "com.android.support:recyclerview-v7:$SupportLib"
   compile "com.android.support:support-v4:$SupportLib"
+  compile "com.android.support:design:$SupportLib"
 
   compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
