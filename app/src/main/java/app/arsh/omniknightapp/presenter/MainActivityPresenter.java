@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 public class MainActivityPresenter extends BasePresenter {
 
-  private final List<Country> countryList;
+  private List<Country> countryList;
   private MainActivityInterface viewListener;
   private Context context;
   @Inject DBClient dbClient;
@@ -27,13 +27,7 @@ public class MainActivityPresenter extends BasePresenter {
     this.viewListener = viewListener;
     this.context = activity;
     ((Omniknight)activity.getApplication()).getDbCompnent().inject(this);
-    countryList = dbClient.getCountries();
 
-    if (countryList.size() == 0) {
-      viewListener.loadNoCityView();
-    } else {
-      setupView();
-    }
   }
 
   @Override protected void setupView() {
@@ -50,6 +44,16 @@ public class MainActivityPresenter extends BasePresenter {
 
   public DBClient getDbClient() {
     return dbClient;
+  }
+
+  public void viewOnCreateFinished() {
+    countryList = dbClient.getCountries();
+
+    if (countryList.size() == 0) {
+      viewListener.loadNoCityView();
+    } else {
+      setupView();
+    }
   }
 
   public void fabButtonClicked() {

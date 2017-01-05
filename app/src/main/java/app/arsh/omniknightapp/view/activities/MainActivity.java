@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+    presenter = new MainActivityPresenter(this, this);
 
     RxView.clicks(fab)
         .subscribe(t ->
             fabClicked());
 
-    presenter = new MainActivityPresenter(this, this);
+    presenter.viewOnCreateFinished();
   } 
 
   @Override public void loadCities(List<Country> countryList) {

@@ -6,6 +6,16 @@
     tools:context="app.arsh.omniknightapp.view.fragments.CountrySelectionFragment"
     >
 
-  
+  <view
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      class="android.support.v7.widget.RecyclerView"
+      android:id="@+id/countryList" />
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      android:layout_centerInParent="true" />
 
 </RelativeLayout>
