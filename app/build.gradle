@@ -55,7 +55,6 @@ dependencies {
   compile "com.android.support:support-v4:$SupportLib"
   compile "com.android.support:design:$SupportLib"
 
-  compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
   //ButterKnife
   apt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
@@ -64,21 +63,23 @@ dependencies {
   //Rx
   compile "io.reactivex:rxjava:$RxJava"
   compile "io.reactivex:rxandroid:$RxJava"
-  compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 
   // Dagger 2
   apt "com.google.dagger:dagger-compiler:$daggerVersion"
   compile "com.google.dagger:dagger:$daggerVersion"
   provided "javax.annotation:jsr250-api:$javaxAnnotation"
 
-  compile "com.google.code.gson:gson:2.6.2"
 
-  compile 'org.greenrobot:greendao:3.2.0'
 
   compile fileTree(dir: 'libs', include: ['*.jar'])
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
+  compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+  compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'org.greenrobot:greendao:3.2.0'
+  compile 'com.android.support:support-v4:25.1.0'
   testCompile 'junit:junit:4.12'
   testCompile 'org.robolectric:robolectric:3.1.4'
   testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'

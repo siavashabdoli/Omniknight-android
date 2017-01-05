@@ -8,6 +8,7 @@ import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
+import app.arsh.omniknightapp.view.fragments.CountrySelectionFragment;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import app.arsh.omniknightapp.view.fragments.CityListFragment;
 import butterknife.BindView;
@@ -48,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   }
 
-  @Override public void loadCountrySelectionMenu() {
-
+  @Override public void loadCountrySelectionFragment() {
+    CountrySelectionFragment countrySelection = new CountrySelectionFragment();
+    countrySelection.show(getFragmentManager(), countrySelection.getClass().getSimpleName());
   }
 
   private void fabClicked() {

@@ -13,5 +13,5 @@ public interface MainActivityInterface {
   void loadNoCityView();
   void loadErrorView();
 
-  void loadCountrySelectionMenu();
+  void loadCountrySelectionFragment();
 }

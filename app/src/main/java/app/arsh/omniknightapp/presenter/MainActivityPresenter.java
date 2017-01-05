@@ -53,6 +53,6 @@ public class MainActivityPresenter extends BasePresenter {
   }
 
   public void fabButtonClicked() {
-    viewListener.loadCountrySelectionMenu();
+    viewListener.loadCountrySelectionFragment();
   }
 }
