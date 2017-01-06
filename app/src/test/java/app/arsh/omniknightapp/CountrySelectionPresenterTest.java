@@ -45,7 +45,7 @@ public class CountrySelectionPresenterTest {
   }
 
   @Test
-  public void test() throws IOException {
+  public void getCountriesTest() throws IOException {
     MockWebServer mockWebServer = new MockWebServer();
 
     Retrofit retrofit = new Retrofit.Builder()
