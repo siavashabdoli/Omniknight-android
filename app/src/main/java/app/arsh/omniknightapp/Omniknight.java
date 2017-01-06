@@ -1,11 +1,9 @@
 package app.arsh.omniknightapp;
 
 import android.app.Application;
-import app.arsh.omniknightapp.model.injection.DBCompnent;
+import app.arsh.omniknightapp.model.injection.APPComponent;
 import app.arsh.omniknightapp.model.injection.DBModule;
-import app.arsh.omniknightapp.model.injection.DaggerDBCompnent;
-import app.arsh.omniknightapp.model.injection.DaggerNetComponent;
-import app.arsh.omniknightapp.model.injection.NetComponent;
+import app.arsh.omniknightapp.model.injection.DaggerAPPComponent;
 import app.arsh.omniknightapp.model.injection.NetModule;
 import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
 
@@ -15,30 +13,23 @@ import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
 
 public class Omniknight extends Application {
 
-  private DBCompnent dbCompnent;
-  private NetComponent netCompnent;
+  private APPComponent dbComponent;
 
   private DaoSession daoSession;
   @Override public void onCreate() {
     super.onCreate();
 
-    dbCompnent = DaggerDBCompnent
+    dbComponent = DaggerAPPComponent
         .builder()
         .dBModule(new DBModule(this))
-        .build();
-
-    netCompnent = DaggerNetComponent
-        .builder()
         .netModule(new NetModule())
         .build();
 
+
   }
 
-  public DBCompnent getDbCompnent() {
-    return dbCompnent;
+  public APPComponent getAppComponent() {
+    return dbComponent;
   }
 
-  public NetComponent getNetCompnent() {
-    return netCompnent;
-  }
 }

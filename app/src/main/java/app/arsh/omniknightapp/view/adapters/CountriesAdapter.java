@@ -54,12 +54,7 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountryViewHolder> {
                 .error(R.drawable.ic_error_outline_black_48dp)
                 .into(holder.getCountryFlag());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickSubject.onNext(country);
-            }
-        });
+        holder.itemView.setOnClickListener(view -> onClickSubject.onNext(country));
     }
 
     @Override

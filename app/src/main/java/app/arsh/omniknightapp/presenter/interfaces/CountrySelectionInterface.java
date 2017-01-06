@@ -14,4 +14,6 @@ public interface CountrySelectionInterface {
   public void hideShowInternetConnectionProblem(Error error);
   public void loadCountries(List<Country> countryList);
   public void setupRecyclerView();
+  public void dismissSelf();
+
 }

@@ -7,7 +7,7 @@ import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
-import app.arsh.omniknightapp.view.fragments.CityListFragment;
+import app.arsh.omniknightapp.view.fragments.WeatherListFragment;
 import app.arsh.omniknightapp.view.fragments.CountrySelectionFragment;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
@@ -18,6 +18,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
   @BindView(R.id.fab) FloatingActionButton fab;
+
   private MainActivityPresenter presenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   @Override public void loadCities(List<Country> countryList) {
     ViewUtils.addFragment(getSupportFragmentManager()
-        ,new CityListFragment().setCountryList(countryList)
+        ,new WeatherListFragment().setCountryList(countryList)
         , R.id.content_frame);
   }
 
   @Override public void loadNoCityView() {
     ViewUtils.addFragment(getSupportFragmentManager()
-        ,new CityListFragment().setCountryList(null)
+        ,new WeatherListFragment().setCountryList(null)
         , R.id.content_frame);
   }
 
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   private void fabClicked() {
     presenter.fabButtonClicked();
+  }
+
+  public MainActivityPresenter getPresenter() {
+    return presenter;
   }
 
 }

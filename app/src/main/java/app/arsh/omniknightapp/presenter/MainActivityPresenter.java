@@ -26,7 +26,7 @@ public class MainActivityPresenter extends BasePresenter {
 
     this.viewListener = viewListener;
     this.context = activity;
-    ((Omniknight)activity.getApplication()).getDbCompnent().inject(this);
+    ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
 
   }
 
@@ -42,13 +42,16 @@ public class MainActivityPresenter extends BasePresenter {
 
   }
 
+  @Override public void onCreateViewFinished() {
+
+  }
+
   public DBClient getDbClient() {
     return dbClient;
   }
 
   public void viewOnCreateFinished() {
-    countryList = dbClient.getCountries();
-
+    updateData();
     if (countryList.size() == 0) {
       viewListener.loadNoCityView();
     } else {
@@ -58,5 +61,18 @@ public class MainActivityPresenter extends BasePresenter {
 
   public void fabButtonClicked() {
     viewListener.loadCountrySelectionFragment();
+  }
+
+  public void updateView() {
+    updateData();
+    if (countryList.size() == 0) {
+      viewListener.loadNoCityView();
+    } else {
+      setupView();
+    }
+  }
+
+  private void updateData() {
+    countryList = dbClient.getCountries();
   }
 }

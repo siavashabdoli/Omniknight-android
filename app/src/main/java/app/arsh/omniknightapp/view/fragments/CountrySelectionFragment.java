@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.List;
+import rx.Observer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +32,20 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
 
   @BindView(R.id.countryList) RecyclerView recyclerView;
   @BindView(R.id.cloudProgressView) ImageView cloudImageView;
+
+  private Observer countrySelected = new Observer<Country>() {
+    @Override public void onCompleted() {
+
+    }
+
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(Country o) {
+      presenter.countrySelected(o);
+    }
+  };
 
   Unbinder unbinder;
 
@@ -63,7 +78,7 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
   }
 
   @Override public void loadCountries(List<Country> countryList) {
-    CountriesAdapter countriesAdapter = new CountriesAdapter(countryList, null);
+    CountriesAdapter countriesAdapter = new CountriesAdapter(countryList, countrySelected);
 
     recyclerView.setAdapter(countriesAdapter);
   }
@@ -72,6 +87,10 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
+  }
+
+  @Override public void dismissSelf() {
+    dismiss();
   }
 
   @Override public void onDestroy() {

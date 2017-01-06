@@ -8,6 +8,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.DaoMaster;
 import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
 import java.util.List;
 import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
 
 ;
 
@@ -28,10 +29,16 @@ public class DBClient {
 
     public void addNewCountry(Country country) {
         CountryDao countryDao = daoSession.getCountryDao();
-        countryDao.insert(country);
+        List<Country> inDB = daoSession.getCountryDao().queryBuilder()
+            .where(CountryDao.Properties.Name.in(country.getName())).list();
+        if (inDB.size() == 0) countryDao.insert(country);
     }
 
     public List<Country> getCountries() {
         return daoSession.getCountryDao().loadAll();
+    }
+
+    public void clearDataBase() {
+        daoSession.getCountryDao().deleteAll();
     }
 }

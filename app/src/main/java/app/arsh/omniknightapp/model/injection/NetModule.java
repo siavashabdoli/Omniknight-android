@@ -1,7 +1,9 @@
 package app.arsh.omniknightapp.model.injection;
 
+import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.service.CountryService;
+import app.arsh.omniknightapp.model.repo.remote.service.WeatherService;
 import dagger.Module;
 import dagger.Provides;
 import java.util.List;
@@ -44,9 +46,10 @@ public class NetModule {
   }
 
   @Provides
-  Call<List<Country>> prodiveCountryList(Retrofit retrofit) {
+  Call<List<Country>> provideCountryList(Retrofit retrofit) {
     return retrofit
         .create(CountryService.class)
         .countryList();
   }
+
 }
