@@ -8,15 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
+import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -49,15 +46,7 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
 
   @Override public void showProgressBar() {
 
-    RotateAnimation anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
-    //Setup anim with desired properties
-    anim.setInterpolator(new LinearInterpolator());
-    anim.setRepeatCount(Animation.INFINITE); //Repeat animation indefinitely
-    anim.setDuration(1400); //Put desired duration per anim cycle here, in milliseconds
-
-    // Start animating the image
-    cloudImageView.startAnimation(anim);
+    cloudImageView.startAnimation(ViewUtils.RotateAnimation(1400));
   }
 
   @Override public void hideProgressBar() {
