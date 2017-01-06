@@ -7,6 +7,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import java.util.List;
+import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +21,7 @@ public class WeatherListPresenter extends BasePresenter {
   private WeatherListInterface listener;
   private List<Country> countryList;
   private AppCompatActivity activity;
-  RESTClient client = new RESTClient();
+  @Inject RESTClient client;
 
   public WeatherListPresenter(AppCompatActivity activity, WeatherListInterface listener, List<Country> countryList) {
     this.activity = activity;

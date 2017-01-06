@@ -6,6 +6,7 @@ import android.util.Log;
 import app.arsh.omniknightapp.Omniknight;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
+import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
 import java.util.List;
@@ -22,7 +23,7 @@ public class CountrySelectionPresenter extends BasePresenter {
 
   private CountrySelectionInterface listener;
   private AppCompatActivity activity;
-  @Inject Call<List<Country>> getCountries;
+  @Inject RESTClient client;
   @Inject DBClient dbClient;
 
   public CountrySelectionPresenter(@NonNull AppCompatActivity activity, CountrySelectionInterface listener) {
@@ -34,7 +35,7 @@ public class CountrySelectionPresenter extends BasePresenter {
 
   @Override public void onCreateViewFinished() {
 
-    getCountries.enqueue(new Callback<List<Country>>() {
+    client.getAllCountriesService().enqueue(new Callback<List<Country>>() {
       @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
         Log.d(getClass().getSimpleName(), "onResponse: "+response.toString());
         listener.hideProgressBar();
