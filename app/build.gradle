@@ -73,6 +73,7 @@ dependencies {
   //    testCompile "com.squareup.okhttp3:mockwebserver:$OKHttpInterceptor"
   compile "com.squareup.okhttp3:okhttp:$OKHttpInterceptor"
   compile "com.squareup.okhttp3:logging-interceptor:$OKHttpInterceptor"
+  compile "com.squareup.okhttp3:mockwebserver:$OKHttpInterceptor"
 
   // Dagger 2
   apt "com.google.dagger:dagger-compiler:$daggerVersion"
