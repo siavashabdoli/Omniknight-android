@@ -15,6 +15,16 @@
       android:layout_centerVertical="true"
       android:layout_centerHorizontal="true"
       />
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:srcCompat="@drawable/ic_wb_cloudy_48px"
+      android:id="@+id/cloudImageView"
+      android:layout_centerVertical="true"
+      android:layout_centerHorizontal="true"
+      android:paddingLeft="60dp"
+      android:paddingTop="60dp"
+      />
   <TextView
       android:text="@string/please_select_a_country"
       android:layout_width="wrap_content"
