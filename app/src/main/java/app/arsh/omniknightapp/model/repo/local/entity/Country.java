@@ -11,7 +11,7 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 @Entity(indexes = {
-    @Index(value = "name, alpha2Code, alpha3Code, capital, relevance, region, subregion, population, demonym, area, nativeName, numericCode, currencies, languages", unique = true)
+    @Index(value = "name, alpha2Code, alpha3Code, capital, relevance, region, subregion, population, demonym, area, nativeName, numericCode", unique = true)
 })
 public class Country {
 
@@ -29,15 +29,13 @@ public class Country {
   private Double gini;
   private String nativeName;
   private String numericCode;
-  private String currencies;
-  private String languages;
 
   @Id
   private Long id;
 
-  @Generated(hash = 800107562)
-  public Country(@NonNull String name, String alpha2Code, String alpha3Code, String capital, String relevance, String region, String subregion, Integer population, String demonym,
-          Double area, Double gini, String nativeName, String numericCode, String currencies, String languages, Long id) {
+  @Generated(hash = 992758694)
+  public Country(@NonNull String name, String alpha2Code, String alpha3Code, String capital, String relevance, String region, String subregion,
+          Integer population, String demonym, Double area, Double gini, String nativeName, String numericCode, Long id) {
       this.name = name;
       this.alpha2Code = alpha2Code;
       this.alpha3Code = alpha3Code;
@@ -51,8 +49,6 @@ public class Country {
       this.gini = gini;
       this.nativeName = nativeName;
       this.numericCode = numericCode;
-      this.currencies = currencies;
-      this.languages = languages;
       this.id = id;
   }
 
@@ -116,14 +112,6 @@ public class Country {
     this.name = name;
   }
 
-  public String getLanguages() {
-    return languages;
-  }
-
-  public void setLanguages(String languages) {
-    this.languages = languages;
-  }
-
   public Long getId() {
     return id;
   }
@@ -146,14 +134,6 @@ public class Country {
 
   public void setDemonym(String demonym) {
     this.demonym = demonym;
-  }
-
-  public String getCurrencies() {
-    return currencies;
-  }
-
-  public void setCurrencies(String currencies) {
-    this.currencies = currencies;
   }
 
   public String getCapital() {

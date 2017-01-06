@@ -38,6 +38,8 @@ ext {
   daggerVersion = '2.7'
   butterKnifeVersion = '8.0.1'
   javaxAnnotation = '1.0'
+  Retrofit = '2.0.0-beta4'
+  OKHttpInterceptor = '3.3.1'
 }
 
 configurations.all {
@@ -63,6 +65,14 @@ dependencies {
   //Rx
   compile "io.reactivex:rxjava:$RxJava"
   compile "io.reactivex:rxandroid:$RxJava"
+
+  //Retrofit
+  compile "com.squareup.retrofit2:retrofit:$Retrofit"
+  compile "com.squareup.retrofit2:converter-gson:$Retrofit"
+  compile "com.squareup.retrofit2:adapter-rxjava:$Retrofit"
+  //    testCompile "com.squareup.okhttp3:mockwebserver:$OKHttpInterceptor"
+  compile "com.squareup.okhttp3:okhttp:$OKHttpInterceptor"
+  compile "com.squareup.okhttp3:logging-interceptor:$OKHttpInterceptor"
 
   // Dagger 2
   apt "com.google.dagger:dagger-compiler:$daggerVersion"
