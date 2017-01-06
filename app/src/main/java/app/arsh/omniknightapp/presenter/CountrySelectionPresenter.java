@@ -36,6 +36,8 @@ public class CountrySelectionPresenter extends BasePresenter {
       @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
         Log.d(getClass().getSimpleName(), "onResponse: "+response.toString());
         listener.hideProgressBar();
+        listener.setupRecyclerView();
+        listener.loadCountries(response.body());
       }
 
       @Override public void onFailure(Call<List<Country>> call, Throwable t) {

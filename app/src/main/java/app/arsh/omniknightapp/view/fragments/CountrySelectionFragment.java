@@ -4,6 +4,8 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
+import app.arsh.omniknightapp.view.adapters.CountriesAdapter;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +63,14 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
   }
 
   @Override public void loadCountries(List<Country> countryList) {
+    CountriesAdapter countriesAdapter = new CountriesAdapter(countryList, null);
+
+    recyclerView.setAdapter(countriesAdapter);
+  }
+
+  @Override public void setupRecyclerView() {
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
   }
 

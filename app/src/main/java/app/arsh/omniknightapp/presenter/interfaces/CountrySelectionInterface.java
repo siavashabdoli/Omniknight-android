@@ -13,4 +13,5 @@ public interface CountrySelectionInterface {
   public void hideProgressBar();
   public void hideShowInternetConnectionProblem(Error error);
   public void loadCountries(List<Country> countryList);
+  public void setupRecyclerView();
 }
