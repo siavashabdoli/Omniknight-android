@@ -7,10 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.entity.Weather;
-import app.arsh.omniknightapp.model.repo.local.entity.Country;
-import app.arsh.omniknightapp.view.adapters.viewholder.CountryViewHolder;
 import app.arsh.omniknightapp.view.adapters.viewholder.WeatherViewHolder;
-import com.squareup.picasso.Picasso;
 import java.util.List;
 import rx.Observer;
 
@@ -37,7 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     @Override
     public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.country_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weather_item, parent, false);
 
         WeatherViewHolder viewHolder = new WeatherViewHolder(view);
         return viewHolder;
@@ -46,9 +43,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         final Weather weather = weathers.get(position);
-        holder.getTemperture().setText(weather.getWeather().get(0).getDescription());
-        holder.getCityName().setText(weather.getName());
-        holder.getHumidity().setText(String.valueOf(weather.getWind().getSpeed()));
+        holder.getCityName().setText(weather.getWeather().get(0).getDescription());
+        holder.getcityWeatherDescriptionTextView().setText(weather.getName());
+        holder.getCapitalTextView().setText(String.valueOf(weather.getWind().getSpeed()));
 
         holder.itemView.setOnClickListener(view -> onClickSubject.onNext(weather));
     }

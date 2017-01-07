@@ -13,22 +13,34 @@ import app.arsh.omniknightapp.R;
 
 public class WeatherViewHolder extends RecyclerView.ViewHolder {
 
-    TextView temperture;
-    TextView humidity;
     TextView cityName;
+    TextView cityWeatherDescriptionTextView;
+    TextView capitalTextView;
     ImageView weatherImage;
 
     public WeatherViewHolder(View itemView) {
         super(itemView);
-        temperture = (TextView) itemView.findViewById(R.id.countryNameTextView);
-        humidity = (TextView) itemView.findViewById(R.id.capitalTextView);
-        cityName = (TextView) itemView.findViewById(R.id.populationTextView);
+        cityName = (TextView) itemView.findViewById(R.id.cityNameTextView);
+        cityWeatherDescriptionTextView = (TextView) itemView.findViewById(R.id.cityWeatherDescriptionTextView);
+        capitalTextView = (TextView) itemView.findViewById(R.id.capitalTextView);
         weatherImage = (ImageView) itemView.findViewById(R.id.countryFlagImageView);
         cv = (CardView)itemView.findViewById(R.id.cardView);
 
     }
 
     private final CardView cv;
+
+    public CardView getCv() {
+        return cv;
+    }
+
+    public TextView getcityWeatherDescriptionTextView() {
+        return cityWeatherDescriptionTextView;
+    }
+
+    public void setcityWeatherDescriptionTextView(TextView humidity) {
+        this.cityWeatherDescriptionTextView = humidity;
+    }
 
     public TextView getCityName() {
         return cityName;
@@ -38,32 +50,19 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
         this.cityName = cityName;
     }
 
-    public CardView getCv() {
-        return cv;
-    }
-
-    public TextView getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(TextView humidity) {
-        this.humidity = humidity;
-    }
-
-    public TextView getTemperture() {
-        return temperture;
-    }
-
-    public void setTemperture(TextView temperture) {
-        this.temperture = temperture;
-    }
-
     public ImageView getWeatherImage() {
         return weatherImage;
     }
 
     public void setWeatherImage(ImageView weatherImage) {
         this.weatherImage = weatherImage;
+    }
+    public TextView getCapitalTextView() {
+        return capitalTextView;
+    }
+
+    public void setCapitalTextView(TextView capitalTextView) {
+        this.capitalTextView = capitalTextView;
     }
 
 }
