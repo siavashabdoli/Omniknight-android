@@ -33,7 +33,7 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
   @BindView(R.id.countryList) RecyclerView recyclerView;
   @BindView(R.id.cloudProgressView) ImageView cloudImageView;
 
-  private Observer countrySelected = new Observer<Country>() {
+  private Observer<Country> countrySelected = new Observer<Country>() {
     @Override public void onCompleted() {
 
     }

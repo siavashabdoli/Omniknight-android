@@ -10,8 +10,6 @@ import java.util.List;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
 
-;
-
 /**
  * Created by arash on 10/24/16.
  */

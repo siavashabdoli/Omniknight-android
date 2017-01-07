@@ -2,7 +2,6 @@
   <string name="app_name">OmniknightApp</string>
 
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="db_name">weather-db</string>
   <string name="please_select_a_country">Please select a country!</string>
   <string name="images_base_url">https://echomybiz.com/media/image/advertise/flags/png250px/</string>

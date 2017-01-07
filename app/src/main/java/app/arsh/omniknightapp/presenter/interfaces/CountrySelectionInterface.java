@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface CountrySelectionInterface {
 
-  public void showProgressBar();
-  public void hideProgressBar();
-  public void hideShowInternetConnectionProblem(Error error);
-  public void loadCountries(List<Country> countryList);
-  public void setupRecyclerView();
-  public void dismissSelf();
+  void showProgressBar();
+  void hideProgressBar();
+  void hideShowInternetConnectionProblem(Error error);
+  void loadCountries(List<Country> countryList);
+  void setupRecyclerView();
+  void dismissSelf();
 
 }
