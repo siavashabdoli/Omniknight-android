@@ -32,6 +32,10 @@ android {
   }
 }
 
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.10'
+}
+
 ext {
   SupportLib = '25.1.0'
   RxJava = '1.1.0'
