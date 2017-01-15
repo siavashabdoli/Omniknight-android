@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 import app.arsh.omniknightapp.R;
@@ -17,7 +16,7 @@ import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.WeatherListPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
-import app.arsh.omniknightapp.view.adapters.CountriesAdapter;
+import app.arsh.omniknightapp.view.adapters.InsetDivider;
 import app.arsh.omniknightapp.view.adapters.WeatherAdapter;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
@@ -60,8 +59,11 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
       noCountryTextView.setVisibility(View.GONE);
       cloudImageView.setVisibility(View.GONE);
       weatherList.setVisibility(View.VISIBLE);
+
       weatherList.setItemAnimator(new DefaultItemAnimator());
       weatherList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+      weatherList.addItemDecoration(getItemDecorator());
+
       adapter = new WeatherAdapter(weathersList, null);
       weatherList.setAdapter(adapter);
     }
@@ -103,5 +105,15 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
   @Override public void showNoInternetConnection() {
 
+  }
+
+  private InsetDivider getItemDecorator() {
+    return new InsetDivider.Builder(getActivity())
+        .orientation(InsetDivider.VERTICAL_LIST)
+        .dividerHeight(16)
+        .color(getResources().getColor(R.color.white))
+        .insets(4, 0)
+        .overlay(true)
+        .build();
   }
 }

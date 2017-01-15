@@ -1,5 +1,7 @@
 package app.arsh.omniknightapp.model.entity;
 
+import app.arsh.omniknightapp.model.repo.local.entity.*;
+import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,17 @@ public class Weather {
     private String name;
     @SerializedName("cod")
     private Integer cod;
+
+    private app.arsh.omniknightapp.model.repo.local.entity.Country country;
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Weather setCountry(Country country) {
+        this.country = country;
+        return this;
+    }
 
     /**
      *

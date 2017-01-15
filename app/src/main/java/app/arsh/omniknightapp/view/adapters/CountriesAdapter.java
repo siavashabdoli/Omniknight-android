@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.view.adapters.viewholder.CountryViewHolder;
+import com.jakewharton.rxbinding.view.RxView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import rx.Observer;
@@ -54,7 +55,7 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountryViewHolder> {
                 .error(R.drawable.ic_error_outline_black_48dp)
                 .into(holder.getCountryFlag());
 
-        holder.itemView.setOnClickListener(view -> onClickSubject.onNext(country));
+        RxView.clicks(holder.itemView).subscribe(view -> onClickSubject.onNext(country));
     }
 
     @Override

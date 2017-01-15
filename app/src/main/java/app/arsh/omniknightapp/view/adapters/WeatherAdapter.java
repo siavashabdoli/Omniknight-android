@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.view.adapters.viewholder.WeatherViewHolder;
+import com.jakewharton.rxbinding.view.RxView;
+import com.squareup.picasso.Picasso;
 import java.util.List;
 import rx.Observer;
 
@@ -43,12 +45,29 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         final Weather weather = weathers.get(position);
-        holder.getCityName().setText(weather.getWeather().get(0).getDescription());
-        holder.getcityWeatherDescriptionTextView().setText(weather.getName());
-        holder.getCapitalTextView().setText(String.valueOf(weather.getWind().getSpeed()));
+        holder.getCityName().setText(weather.getName()+" ("+weather.getCountry().getName()+")");
+        weather.getMain().setTemp(weather.getMain().getTemp()-273.15);
+        weather.getMain().setTempMin(weather.getMain().getTempMin()-273.15);
+        weather.getMain().setTempMax(weather.getMain().getTempMax()-273.15);
+        holder.getWeatherCondition().setText(String.valueOf(weather.getMain().getTemp().intValue())
+            +" ("+weather.getMain().getTempMin().intValue()
+            +" to "+weather.getMain().getTempMin().intValue()+") Celsius");
+        holder.getcityWeatherDescriptionTextView().setText(weather.getWeather().get(0).getDescription());
 
-        holder.itemView.setOnClickListener(view -> onClickSubject.onNext(weather));
+        String imageURL = new StringBuilder().append(context.getString(R.string.images_base_url)).
+            append(weather.getCountry().getAlpha2Code().toLowerCase()).append(context.getString(R.string.png_post_fix)).toString();
+        // Use Picasso to load the image
+        // Temporarily have a placeholder in case it's slow to load
+        Picasso.with(context)
+            .load(imageURL)
+            .fit()
+            .placeholder(R.drawable.ic_flag_black_48dp)
+            .error(R.drawable.ic_error_outline_black_48dp)
+            .into(holder.getWeatherImage());
+
+        RxView.clicks(holder.itemView).subscribe(view -> onClickSubject.onNext(weather));
     }
+
 
     @Override
     public int getItemCount() {

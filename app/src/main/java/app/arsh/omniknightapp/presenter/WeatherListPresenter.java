@@ -49,7 +49,7 @@ public class WeatherListPresenter extends BasePresenter {
     for (Country country : countryList) {
       client.getWeatherWithCountry(country).enqueue(new Callback<Weather>() {
         @Override public void onResponse(Call<Weather> call, Response<Weather> response) {
-          listener.loadWeatherList(response.body());
+          listener.loadWeatherList(response.body().setCountry(country));
           listener.dismissProgress();
         }
 

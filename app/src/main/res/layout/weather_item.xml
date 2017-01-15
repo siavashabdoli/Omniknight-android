@@ -7,44 +7,42 @@
     >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
             android:id="@+id/cityNameTextView"
-            android:layout_alignParentRight="false"
-            android:layout_toRightOf="@+id/countryFlagImageView"
+            android:layout_toRightOf="@+id/cityFlagImageView"
             android:textSize="16sp"
-            android:paddingLeft="10dp"
-            android:layout_alignTop="@+id/countryFlagImageView" />
+            android:paddingLeft="8dp"
+            android:layout_alignTop="@+id/cityFlagImageView" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Capital"
-            android:id="@+id/capitalTextView"
-            android:layout_alignParentRight="false"
-            android:layout_toRightOf="@+id/countryFlagImageView"
+            android:id="@+id/weatherCondition"
+            android:layout_toRightOf="@+id/cityFlagImageView"
             android:textSize="12sp"
-            android:paddingLeft="10dp"
-            android:layout_below="@+id/countryNameTextView" />
+            android:paddingLeft="8dp"
+            android:layout_below="@+id/cityNameTextView" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Population"
             android:id="@+id/cityWeatherDescriptionTextView"
-            android:layout_alignParentRight="false"
-            android:layout_toRightOf="@+id/countryFlagImageView"
+            android:layout_toRightOf="@+id/cityFlagImageView"
             android:textSize="12sp"
-            android:paddingLeft="10dp"
-            android:layout_below="@+id/capitalTextView" />
+            android:paddingLeft="8dp"
+            android:layout_below="@+id/weatherCondition" />
 
         <ImageView
             android:layout_width="80dp"
-            android:layout_height="40dp"
             android:id="@+id/cityFlagImageView"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_height="30dp"
+            />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

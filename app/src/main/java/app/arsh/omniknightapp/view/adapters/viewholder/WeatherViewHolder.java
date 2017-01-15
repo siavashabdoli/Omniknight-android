@@ -15,15 +15,15 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
 
     TextView cityName;
     TextView cityWeatherDescriptionTextView;
-    TextView capitalTextView;
+    TextView weatherCondition;
     ImageView weatherImage;
 
     public WeatherViewHolder(View itemView) {
         super(itemView);
         cityName = (TextView) itemView.findViewById(R.id.cityNameTextView);
         cityWeatherDescriptionTextView = (TextView) itemView.findViewById(R.id.cityWeatherDescriptionTextView);
-        capitalTextView = (TextView) itemView.findViewById(R.id.capitalTextView);
-        weatherImage = (ImageView) itemView.findViewById(R.id.countryFlagImageView);
+        weatherCondition = (TextView) itemView.findViewById(R.id.weatherCondition);
+        weatherImage = (ImageView) itemView.findViewById(R.id.cityFlagImageView);
         cv = (CardView)itemView.findViewById(R.id.cardView);
 
     }
@@ -57,12 +57,12 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
     public void setWeatherImage(ImageView weatherImage) {
         this.weatherImage = weatherImage;
     }
-    public TextView getCapitalTextView() {
-        return capitalTextView;
+    public TextView getWeatherCondition() {
+        return weatherCondition;
     }
 
-    public void setCapitalTextView(TextView capitalTextView) {
-        this.capitalTextView = capitalTextView;
+    public void setWeatherCondition(TextView capitalTextView) {
+        this.weatherCondition = capitalTextView;
     }
 
 }
