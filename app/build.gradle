@@ -14,6 +14,7 @@ android {
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
   }
   buildTypes {
     release {
@@ -29,6 +30,9 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
+  }
+  dexOptions {
+    javaMaxHeapSize "4g"
   }
 }
 
@@ -54,6 +58,8 @@ configurations.all {
 }
 
 dependencies {
+  //Handling 65K method limit
+  compile 'com.android.support:multidex:1.0.1'
 
   //Support lib
   compile "com.android.support:appcompat-v7:$SupportLib"
