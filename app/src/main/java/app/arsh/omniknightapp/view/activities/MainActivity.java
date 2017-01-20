@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.R;
+import app.arsh.omniknightapp.model.LocationManager;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
@@ -20,6 +21,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -27,16 +29,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @BindView(R.id.fab) FloatingActionButton fab;
 
   private MainActivityPresenter presenter;
+  private LocationManager locationManager;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+    WeakReference<MainActivity> weakReference = new WeakReference<>(this);
     Dexter.withActivity(this)
         .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         .withListener(new PermissionListener() {
           @Override public void onPermissionGranted(PermissionGrantedResponse response) {
-
+            locationManager = new LocationManager(weakReference.get());
           }
           @Override public void onPermissionDenied(PermissionDeniedResponse response) {
 
@@ -52,7 +56,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             fabClicked());
 
     presenter.viewOnCreateFinished();
-  } 
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    if (locationManager != null) {
+      locationManager.removeListener();
+    }
+  }
 
   @Override public void loadCities(List<Country> countryList) {
     ViewUtils.addFragment(getSupportFragmentManager()
