@@ -36,7 +36,7 @@ public class WeatherListPresenter extends BasePresenter {
   }
 
   @Override protected void showErrorView() {
-
+    listener.showError(new Error());
   }
 
   @Override protected void showProgressView() {
@@ -46,6 +46,10 @@ public class WeatherListPresenter extends BasePresenter {
   @Override public void onCreateViewFinished() {
 
     listener.showProgress();
+    if (countryList == null) {
+      showErrorView();
+      return;
+    }
     for (Country country : countryList) {
       client.getWeatherWithCountry(country).enqueue(new Callback<Weather>() {
         @Override public void onResponse(Call<Weather> call, Response<Weather> response) {
