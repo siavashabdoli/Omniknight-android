@@ -1,5 +1,6 @@
 package app.arsh.omniknightapp.view.activities;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,12 @@ import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding.view.RxView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -25,6 +32,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+    Dexter.withActivity(this)
+        .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        .withListener(new PermissionListener() {
+          @Override public void onPermissionGranted(PermissionGrantedResponse response) {
+
+          }
+          @Override public void onPermissionDenied(PermissionDeniedResponse response) {
+            
+          }
+          @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+          }
+        }).check();
     presenter = new MainActivityPresenter(this, this);
 
     RxView.clicks(fab)
