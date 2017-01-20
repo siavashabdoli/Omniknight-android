@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
           }
           @Override public void onPermissionDenied(PermissionDeniedResponse response) {
-            
+
           }
           @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
 
