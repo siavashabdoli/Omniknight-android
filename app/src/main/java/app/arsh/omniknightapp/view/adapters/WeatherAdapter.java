@@ -65,7 +65,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
             .error(R.drawable.ic_error_outline_black_48dp)
             .into(holder.getWeatherImage());
 
-        RxView.clicks(holder.itemView).subscribe(view -> onClickSubject.onNext(weather));
+        if (onClickSubject != null) RxView.clicks(holder.itemView).subscribe(view -> onClickSubject.onNext(weather));
     }
 
 
