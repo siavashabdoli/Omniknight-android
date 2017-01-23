@@ -1,6 +1,9 @@
 package app.arsh.omniknightapp.presenter;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.Omniknight;
@@ -14,7 +17,8 @@ import javax.inject.Inject;
  * Created by arash on 1/2/17.
  */
 
-public class MainActivityPresenter extends BasePresenter {
+public class MainActivityPresenter extends BasePresenter
+    implements Application.ActivityLifecycleCallbacks {
 
   private List<Country> countryList;
   private MainActivityInterface viewListener;
@@ -27,7 +31,7 @@ public class MainActivityPresenter extends BasePresenter {
     this.viewListener = viewListener;
     this.context = activity;
     ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
-
+    activity.getApplication().registerActivityLifecycleCallbacks(this);
   }
 
   @Override protected void setupView() {
@@ -43,14 +47,6 @@ public class MainActivityPresenter extends BasePresenter {
   }
 
   @Override public void onCreateViewFinished() {
-
-  }
-
-  public DBClient getDbClient() {
-    return dbClient;
-  }
-
-  public void viewOnCreateFinished() {
     updateData();
     if (countryList.size() == 0) {
       viewListener.loadNoCityView();
@@ -58,6 +54,11 @@ public class MainActivityPresenter extends BasePresenter {
       setupView();
     }
   }
+
+  public DBClient getDbClient() {
+    return dbClient;
+  }
+
 
   public void fabButtonClicked() {
     viewListener.loadCountrySelectionFragment();
@@ -74,5 +75,33 @@ public class MainActivityPresenter extends BasePresenter {
 
   private void updateData() {
     countryList = dbClient.getCountries();
+  }
+
+  @Override public void onActivityCreated(Activity activity, Bundle bundle) {
+
+  }
+
+  @Override public void onActivityStarted(Activity activity) {
+
+  }
+
+  @Override public void onActivityResumed(Activity activity) {
+    viewListener.registerListeners();
+  }
+
+  @Override public void onActivityPaused(Activity activity) {
+    viewListener.unregisterListeners();
+  }
+
+  @Override public void onActivityStopped(Activity activity) {
+
+  }
+
+  @Override public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+
+  }
+
+  @Override public void onActivityDestroyed(Activity activity) {
+
   }
 }
