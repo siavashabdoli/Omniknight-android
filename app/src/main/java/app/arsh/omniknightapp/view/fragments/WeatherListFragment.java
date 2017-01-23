@@ -68,7 +68,6 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
       weatherList.setAdapter(adapter);
     }
 
-
     presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
     presenter.onCreateViewFinished();
     return view;

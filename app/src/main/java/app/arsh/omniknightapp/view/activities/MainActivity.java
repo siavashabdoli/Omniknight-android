@@ -35,34 +35,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
-    WeakReference<MainActivity> weakReference = new WeakReference<>(this);
-    Dexter.withActivity(this)
-        .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        .withListener(new PermissionListener() {
-          @Override public void onPermissionGranted(PermissionGrantedResponse response) {
-            locationManager = new LocationManager(weakReference.get());
-          }
-          @Override public void onPermissionDenied(PermissionDeniedResponse response) {
-
-          }
-          @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-          }
-        }).check();
     presenter = new MainActivityPresenter(this, this);
 
     RxView.clicks(fab)
         .subscribe(t ->
             fabClicked());
 
-    presenter.viewOnCreateFinished();
-  }
-
-  @Override protected void onPause() {
-    super.onPause();
-    if (locationManager != null) {
-      locationManager.removeListener();
-    }
+    presenter.onCreateViewFinished();
   }
 
   @Override public void loadCities(List<Country> countryList) {
@@ -84,6 +63,29 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override public void loadCountrySelectionFragment() {
     CountrySelectionFragment countrySelection = new CountrySelectionFragment();
     countrySelection.show(getFragmentManager(), countrySelection.getClass().getSimpleName());
+  }
+
+  @Override public void registerListeners() {
+    WeakReference<MainActivity> weakReference = new WeakReference<>(this);
+    Dexter.withActivity(this)
+        .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        .withListener(new PermissionListener() {
+          @Override public void onPermissionGranted(PermissionGrantedResponse response) {
+            locationManager = new LocationManager(weakReference.get());
+          }
+          @Override public void onPermissionDenied(PermissionDeniedResponse response) {
+
+          }
+          @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+          }
+        }).check();
+  }
+
+  @Override public void unregisterListeners() {
+    if (locationManager != null) {
+      locationManager.removeListener();
+    }
   }
 
   private void fabClicked() {

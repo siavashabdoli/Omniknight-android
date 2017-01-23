@@ -14,4 +14,6 @@ public interface MainActivityInterface {
   void loadErrorView();
 
   void loadCountrySelectionFragment();
+  void registerListeners();
+  void unregisterListeners();
 }

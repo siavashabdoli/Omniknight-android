@@ -30,7 +30,7 @@ public class MainActivityPresenterUnitTest {
     mainActivity = Robolectric.setupActivity(MainActivity.class);
     presenter = new MainActivityPresenter(mainActivityInterface, mainActivity);
 
-    presenter.viewOnCreateFinished();
+    presenter.onCreateViewFinished();
     if (presenter.getDbClient().getCountries().size() == 0) verify(mainActivityInterface).loadNoCityView();
     else verify(mainActivityInterface).loadCities(presenter.getDbClient().getCountries());
   }
