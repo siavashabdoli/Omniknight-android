@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 
 /**
  * Created by arash on 1/2/17.
@@ -31,13 +32,26 @@ public class ViewUtils {
 
   public static RotateAnimation RotateAnimation(int duration) {
     RotateAnimation
-        anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        mAnimation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
     //Setup anim with desired properties
-    anim.setInterpolator(new LinearInterpolator());
-    anim.setRepeatCount(Animation.INFINITE); //Repeat animation indefinitely
-    anim.setDuration(duration); //Put desired duration per anim cycle here, in milliseconds
+    mAnimation.setInterpolator(new LinearInterpolator());
+    mAnimation.setRepeatCount(Animation.INFINITE); //Repeat animation indefinitely
+    mAnimation.setDuration(duration); //Put desired duration per anim cycle here, in milliseconds
 
-    return anim;
+    return mAnimation;
+  }
+
+  public static TranslateAnimation BackForwardAnimate(int duration) {
+    TranslateAnimation mAnimation = new TranslateAnimation(
+        TranslateAnimation.ABSOLUTE, 0f,
+        TranslateAnimation.ABSOLUTE, 20f,
+        TranslateAnimation.ABSOLUTE, 0f,
+        TranslateAnimation.ABSOLUTE, 0f);
+    mAnimation.setDuration(100);
+    mAnimation.setRepeatCount(-1);
+    mAnimation.setRepeatMode(Animation.REVERSE);
+    mAnimation.setInterpolator(new LinearInterpolator());
+    return mAnimation;
   }
 }

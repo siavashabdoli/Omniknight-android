@@ -4,6 +4,10 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.LocationManager;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
@@ -26,7 +30,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
-  @BindView(R.id.fab) FloatingActionButton fab;
+  @BindView(R.id.fab)              FloatingActionButton fab;
+  @BindView(R.id.pointerImageView) ImageView pointerImageView;
 
   private MainActivityPresenter presenter;
   private LocationManager locationManager;
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     ViewUtils.addFragment(getSupportFragmentManager()
         ,new WeatherListFragment().setCountryList(null)
         , R.id.content_frame);
+
+    pointerImageView.setAnimation(ViewUtils.BackForwardAnimate(100));
   }
 
   @Override public void loadErrorView() {
