@@ -47,7 +47,6 @@ public class WeatherListPresenter extends BasePresenter {
 
     listener.showProgress();
     if (countryList == null) {
-      showErrorView();
       return;
     }
     for (Country country : countryList) {
