@@ -8,7 +8,8 @@ import app.arsh.omniknightapp.model.repo.local.entity.DaoMaster;
 import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
 import java.util.List;
 import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.query.QueryBuilder;
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by arash on 10/24/16.
@@ -17,6 +18,11 @@ import org.greenrobot.greendao.query.QueryBuilder;
 public class DBClient {
 
     private final DaoSession daoSession;
+    private Observer<Country> countryChangeObserver;
+
+    public void setCountryChangeObserver(Observer<Country> countryChangeObserver) {
+        this.countryChangeObserver = countryChangeObserver;
+    }
 
     public DBClient(Application application) {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(application, application.getString(
@@ -29,7 +35,10 @@ public class DBClient {
         CountryDao countryDao = daoSession.getCountryDao();
         List<Country> inDB = daoSession.getCountryDao().queryBuilder()
             .where(CountryDao.Properties.Name.in(country.getName())).list();
-        if (inDB.size() == 0) countryDao.insert(country);
+        if (inDB.size() == 0) {
+            countryDao.insert(country);
+            Observable.just(country).subscribe(countryChangeObserver);
+        }
     }
 
     public List<Country> getCountries() {

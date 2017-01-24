@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observer;
 
 /**
  * Created by arash on 1/5/17.
@@ -25,11 +26,25 @@ public class CountrySelectionPresenter extends BasePresenter {
   private AppCompatActivity activity;
   @Inject RESTClient client;
   @Inject DBClient dbClient;
+  private Observer<Country> countryObserver = new Observer<Country>() {
+    @Override public void onCompleted() {
+
+    }
+
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(Country country) {
+      ((MainActivity)activity).getPresenter().updateView();
+    }
+  };
 
   public CountrySelectionPresenter(@NonNull AppCompatActivity activity, CountrySelectionInterface listener) {
     this.activity = activity;
     this.listener = listener;
     ((Omniknight) activity.getApplication()).getAppComponent().inject(this);
+    dbClient.setCountryChangeObserver(countryObserver);
 
   }
 
@@ -66,6 +81,5 @@ public class CountrySelectionPresenter extends BasePresenter {
   public void countrySelected(Country o) {
     dbClient.addNewCountry(o);
     listener.dismissSelf();
-    ((MainActivity)activity).getPresenter().updateView();
   }
 }
