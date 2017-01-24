@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     ViewUtils.addFragment(getSupportFragmentManager()
         ,new WeatherListFragment().setCountryList(countryList)
         , R.id.content_frame);
+    pointerImageView.setVisibility(View.GONE);
   }
 
   @Override public void loadNoCityView() {
