@@ -31,13 +31,28 @@ public class DBClient {
         daoSession = new DaoMaster(db).newSession();
     }
 
-    public void addNewCountry(Country country) {
+    public Boolean addNewCountry(Country country) {
         CountryDao countryDao = daoSession.getCountryDao();
         List<Country> inDB = daoSession.getCountryDao().queryBuilder()
             .where(CountryDao.Properties.Name.in(country.getName())).list();
         if (inDB.size() == 0) {
             countryDao.insert(country);
             Observable.just(country).subscribe(countryChangeObserver);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public Boolean removeCountry(Country country) {
+        CountryDao countryDao = daoSession.getCountryDao();
+        List<Country> inDB = daoSession.getCountryDao().queryBuilder()
+            .where(CountryDao.Properties.Name.in(country.getName())).list();
+        if (inDB.size() == 0) {
+            countryDao.delete(inDB.get(0));
+            return true;
+        }else {
+            return false;
         }
     }
 
