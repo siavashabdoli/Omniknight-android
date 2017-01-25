@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   @BindView(R.id.fab)              FloatingActionButton fab;
   @BindView(R.id.pointerImageView) ImageView pointerImageView;
+  @BindView(R.id.toolbar) Toolbar toolbar;
 
   private MainActivityPresenter presenter;
   private LocationManager locationManager;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    setSupportActionBar(toolbar);
     ButterKnife.bind(this);
     presenter = new MainActivityPresenter(this, this);
 
