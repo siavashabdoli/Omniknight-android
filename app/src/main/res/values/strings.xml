@@ -6,4 +6,6 @@
   <string name="please_select_a_country">Please select a country!</string>
   <string name="images_base_url">https://echomybiz.com/media/image/advertise/flags/png250px/</string>
   <string name="png_post_fix">.png</string>
+  <string name="no_country_to_edit">There is no country to edit!</string>
+  <string name="weather">Weather</string>
 </resources>
