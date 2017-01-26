@@ -1,6 +1,7 @@
 package app.arsh.omniknightapp.presenter;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import app.arsh.omniknightapp.Omniknight;
 import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
@@ -36,6 +37,10 @@ public class WeatherListPresenter extends BasePresenter {
 
   }
 
+  public Action1 getPresenterReady() {
+    return presenterReady;
+  }
+
   public void setPresenterReady(Action1 presenterReady) {
     this.presenterReady = presenterReady;
   }
@@ -55,7 +60,11 @@ public class WeatherListPresenter extends BasePresenter {
   @Override public void onCreateViewFinished() {
 
     listener.showProgress();
-    Observable.just(true).subscribe(presenterReady);
+
+    Observable.just(true).subscribe(getPresenterReady(), err -> {
+      Log.v(getClass().getSimpleName(), err.getLocalizedMessage());
+    });
+
     if (countryList == null) {
       return;
     }
