@@ -13,4 +13,7 @@ public interface WeatherListInterface {
   void dismissProgress();
   void showError(Error error);
   void showNoInternetConnection();
+
+  void recyclerViewEnterEditMode();
+  void recyclerViewExitEditMode();
 }

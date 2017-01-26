@@ -28,6 +28,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import java.lang.ref.WeakReference;
 import java.util.List;
+import rx.functions.Action1;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
@@ -37,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   private MainActivityPresenter presenter;
   private LocationManager locationManager;
+  private WeatherListFragment weatherFragment;
+
+  private Action1 presenterReady = o -> {
+    if ((Boolean) o) {
+      presenter.setWeatherListPresenterSoftReference(weatherFragment.getPresenter());
+    }
+  };
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -62,22 +70,27 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    if (id == R.id.extra) {
-      return true;
-    }
+    presenter.onOptionsItemSelected(item);
     return super.onOptionsItemSelected(item);
   }
 
   @Override public void loadCities(List<Country> countryList) {
+    weatherFragment = new WeatherListFragment()
+        .setCountryList(countryList)
+        .setPresenterReady(presenterReady);
+
     ViewUtils.addFragment(getSupportFragmentManager()
-        ,new WeatherListFragment().setCountryList(countryList)
+        , weatherFragment
         , R.id.content_frame);
     pointerImageView.setVisibility(View.GONE);
   }
 
   @Override public void loadNoCityView() {
+    weatherFragment = new WeatherListFragment()
+        .setCountryList(null)
+        .setPresenterReady(presenterReady);
     ViewUtils.addFragment(getSupportFragmentManager()
-        ,new WeatherListFragment().setCountryList(null)
+        ,weatherFragment
         , R.id.content_frame);
 
     pointerImageView.setAnimation(ViewUtils.BackForwardAnimate(100));

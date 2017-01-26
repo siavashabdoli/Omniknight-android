@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.ArrayList;
 import java.util.List;
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +40,23 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
   @BindView(R.id.noCountryTextView) TextView noCountryTextView;
   @BindView(R.id.cloudImageView) ImageView cloudImageView;
   @BindView(R.id.weatherList) RecyclerView weatherList;
+
   private WeatherListPresenter presenter;
   private WeatherAdapter adapter;
 
+  private Action1 presenterReady;
+
   public WeatherListFragment() {
     // Required empty public constructor
+  }
+
+  public WeatherListFragment setPresenterReady(Action1 presenterReady) {
+    this.presenterReady = presenterReady;
+    return this;
+  }
+
+  public WeatherListPresenter getPresenter() {
+    return presenter;
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +83,9 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     }
 
     presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
+    presenter.setPresenterReady(presenterReady);
     presenter.onCreateViewFinished();
+
     return view;
   }
 
@@ -103,6 +119,14 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
   }
 
   @Override public void showNoInternetConnection() {
+
+  }
+
+  @Override public void recyclerViewEnterEditMode() {
+
+  }
+
+  @Override public void recyclerViewExitEditMode() {
 
   }
 

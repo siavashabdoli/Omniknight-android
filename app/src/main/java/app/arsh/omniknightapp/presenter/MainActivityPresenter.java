@@ -6,10 +6,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.widget.Toast;
 import app.arsh.omniknightapp.Omniknight;
+import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
+import java.lang.ref.SoftReference;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -24,6 +28,13 @@ public class MainActivityPresenter extends BasePresenter
   private MainActivityInterface viewListener;
   private Context context;
   @Inject DBClient dbClient;
+  private SoftReference<WeatherListPresenter> weatherListPresenterSoftReference;
+  private boolean editMode = false;
+
+  public void setWeatherListPresenterSoftReference(
+      WeatherListPresenter weatherListPresenterSoftReference) {
+    this.weatherListPresenterSoftReference = new SoftReference<>(weatherListPresenterSoftReference);
+  }
 
   public MainActivityPresenter(@NonNull MainActivityInterface viewListener,
       @NonNull AppCompatActivity activity) {
@@ -70,6 +81,23 @@ public class MainActivityPresenter extends BasePresenter
       viewListener.loadNoCityView();
     } else {
       setupView();
+    }
+  }
+
+  public void onOptionsItemSelected(MenuItem menuItem) {
+    if (menuItem.getItemId() == R.id.extra) {
+      if (countryList.isEmpty()) {
+        Toast.makeText(context, context.getString(R.string.no_country_to_edit), Toast.LENGTH_SHORT).show();
+      } else {
+        if (weatherListPresenterSoftReference.get() != null) {
+          if (!editMode) {
+            weatherListPresenterSoftReference.get().recyclerViewEnterEditMode();
+          } else {
+            weatherListPresenterSoftReference.get().recyclerViewExitEditMode();
+          }
+          editMode = !editMode;
+        }
+      }
     }
   }
 
