@@ -89,13 +89,17 @@ public class MainActivityPresenter extends BasePresenter
       if (countryList.isEmpty()) {
         Toast.makeText(context, context.getString(R.string.no_country_to_edit), Toast.LENGTH_SHORT).show();
       } else {
-        if (weatherListPresenterSoftReference.get() != null) {
-          if (!editMode) {
-            weatherListPresenterSoftReference.get().recyclerViewEnterEditMode();
-          } else {
-            weatherListPresenterSoftReference.get().recyclerViewExitEditMode();
+        if (weatherListPresenterSoftReference != null) {
+          if (weatherListPresenterSoftReference.get() != null) {
+            if (!editMode) {
+              weatherListPresenterSoftReference.get().recyclerViewEnterEditMode();
+            } else {
+              weatherListPresenterSoftReference.get().recyclerViewExitEditMode();
+            }
+            editMode = !editMode;
           }
-          editMode = !editMode;
+        }else {
+          //TODO: request for a new presenter!  
         }
       }
     }
