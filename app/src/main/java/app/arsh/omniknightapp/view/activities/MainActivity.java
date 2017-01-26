@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   private LocationManager locationManager;
   private WeatherListFragment weatherFragment;
 
-  private Action1 presenterReady = o -> {
-    if ((Boolean) o) {
+  private Action1 presenterReady = callback -> {
+    if ((Boolean) callback) {
       presenter.setWeatherListPresenterSoftReference(weatherFragment.getPresenter());
     }
   };
