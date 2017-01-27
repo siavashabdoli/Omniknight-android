@@ -30,7 +30,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
 
     public void addWeather(Weather weather) {
         weathers.add(weather);
-        notifyDataSetChanged();
+    }
+
+    public void resetData() {
+        weathers = null;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
 
     @Override
     public int getItemCount() {
-        return weathers.size();
+        return weathers == null ? 0 : weathers.size();
     }
 
 }
