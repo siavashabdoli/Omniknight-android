@@ -3,6 +3,7 @@ package app.arsh.omniknightapp.view.adapters.viewholder;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import app.arsh.omniknightapp.R;
@@ -17,6 +18,7 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
     TextView cityWeatherDescriptionTextView;
     TextView weatherCondition;
     ImageView weatherImage;
+    CheckBox removeCheckBox;
 
     public WeatherViewHolder(View itemView) {
         super(itemView);
@@ -24,6 +26,7 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
         cityWeatherDescriptionTextView = (TextView) itemView.findViewById(R.id.cityWeatherDescriptionTextView);
         weatherCondition = (TextView) itemView.findViewById(R.id.weatherCondition);
         weatherImage = (ImageView) itemView.findViewById(R.id.cityFlagImageView);
+        removeCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
         cv = (CardView)itemView.findViewById(R.id.cardView);
 
     }
@@ -65,4 +68,11 @@ public class WeatherViewHolder extends RecyclerView.ViewHolder {
         this.weatherCondition = capitalTextView;
     }
 
+    public CheckBox getRemoveCheckBox() {
+        return removeCheckBox;
+    }
+
+    public void setRemoveCheckBox(CheckBox removeCheckBox) {
+        this.removeCheckBox = removeCheckBox;
+    }
 }
