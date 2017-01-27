@@ -65,15 +65,9 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     unbinder = ButterKnife.bind(this, view);
 
     if (countryList == null || countryList.size() == 0) {
-      imageViewNoCountry.setVisibility(View.VISIBLE);
-      noCountryTextView.setVisibility(View.VISIBLE);
-      cloudImageView.setVisibility(View.VISIBLE);
+      displayNoCityAvailableImages();
     } else {
-      imageViewNoCountry.setVisibility(View.GONE);
-      noCountryTextView.setVisibility(View.GONE);
-      cloudImageView.setVisibility(View.GONE);
-      weatherList.setVisibility(View.VISIBLE);
-
+      hideNoCityAvailableImages();
       weatherList.setItemAnimator(new DefaultItemAnimator());
       weatherList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
       weatherList.addItemDecoration(getItemDecorator());
@@ -102,6 +96,7 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
   @Override public void loadWeatherList(Weather weather) {
     adapter.addWeather(weather);
+    adapter.notifyDataSetChanged();
   }
 
   @Override public void showProgress() {
@@ -123,8 +118,23 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
   }
 
   @Override public void recyclerViewEnterEditMode() {
-
+    adapter.resetData();
+    displayNoCityAvailableImages();
+    adapter.notifyDataSetChanged();
   }
+
+  private void displayNoCityAvailableImages() {
+    imageViewNoCountry.setVisibility(View.VISIBLE);
+    noCountryTextView.setVisibility(View.VISIBLE);
+    cloudImageView.setVisibility(View.VISIBLE);
+  }
+
+  private void hideNoCityAvailableImages() {
+    imageViewNoCountry.setVisibility(View.GONE);
+    noCountryTextView.setVisibility(View.GONE);
+    cloudImageView.setVisibility(View.GONE);
+    weatherList.setVisibility(View.VISIBLE);
+  } 
 
   @Override public void recyclerViewExitEditMode() {
 
