@@ -3,7 +3,9 @@ package app.arsh.omniknightapp.presenter;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 import app.arsh.omniknightapp.Omniknight;
+import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
@@ -22,6 +24,7 @@ import rx.Observer;
 
 public class CountrySelectionPresenter extends BasePresenter {
 
+  private static final String TAG = CountrySelectionPresenter.class.getSimpleName();
   private CountrySelectionInterface listener;
   private AppCompatActivity activity;
   @Inject RESTClient client;
@@ -52,15 +55,17 @@ public class CountrySelectionPresenter extends BasePresenter {
 
     client.getAllCountriesService().enqueue(new Callback<List<Country>>() {
       @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-        Log.d(getClass().getSimpleName(), "onResponse: "+response.toString());
+        Log.d(TAG, "onResponse: "+response.toString());
         listener.hideProgressBar();
         listener.setupRecyclerView();
         listener.loadCountries(response.body());
       }
 
       @Override public void onFailure(Call<List<Country>> call, Throwable t) {
-        Log.d(getClass().getSimpleName(), "onFailure: "+t.getLocalizedMessage());
+        Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
         listener.hideProgressBar();
+        listener.dismissSelf();
+        Toast.makeText(activity, activity.getString(R.string.error), Toast.LENGTH_LONG).show();
       }
     });
     listener.showProgressBar();

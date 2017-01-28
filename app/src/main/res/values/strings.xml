@@ -8,4 +8,5 @@
   <string name="png_post_fix">.png</string>
   <string name="no_country_to_edit">There is no country to edit!</string>
   <string name="weather">Weather</string>
+  <string name="error">Please try again later!</string>
 </resources>
