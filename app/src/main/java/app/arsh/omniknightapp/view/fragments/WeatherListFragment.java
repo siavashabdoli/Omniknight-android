@@ -118,8 +118,12 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
   }
 
   @Override public void recyclerViewEnterEditMode() {
-    adapter.resetData();
-    displayNoCityAvailableImages();
+    adapter.setEditMode(true);
+    adapter.notifyDataSetChanged();
+  }
+
+  @Override public void recyclerViewExitEditMode() {
+    adapter.setEditMode(false);
     adapter.notifyDataSetChanged();
   }
 
@@ -134,10 +138,6 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     noCountryTextView.setVisibility(View.GONE);
     cloudImageView.setVisibility(View.GONE);
     weatherList.setVisibility(View.VISIBLE);
-  } 
-
-  @Override public void recyclerViewExitEditMode() {
-
   }
 
   private InsetDivider getItemDecorator() {

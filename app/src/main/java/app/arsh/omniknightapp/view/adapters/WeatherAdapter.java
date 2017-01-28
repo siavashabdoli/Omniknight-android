@@ -22,10 +22,20 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     private Context context;
     private List<Weather> weathers;
     private Observer<Weather> onClickSubject;
+    private Boolean editMode;
 
     public WeatherAdapter(List<Weather> weathers, Observer<Weather> onClickSubject) {
         this.weathers = weathers;
         this.onClickSubject = onClickSubject;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
+    }
+
+    public Boolean getEditMode() {
+        if (editMode == null) editMode = false;
+        return this.editMode;
     }
 
     public void addWeather(Weather weather) {
@@ -56,6 +66,9 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
             +" ("+weather.getMain().getTempMin().intValue()
             +" to "+weather.getMain().getTempMin().intValue()+") Celsius");
         holder.getcityWeatherDescriptionTextView().setText(weather.getWeather().get(0).getDescription());
+
+        if (getEditMode()) holder.getRemoveCheckBox().setVisibility(View.VISIBLE);
+        else  holder.getRemoveCheckBox().setVisibility(View.GONE);
 
         String imageURL = new StringBuilder().append(context.getString(R.string.images_base_url)).
             append(weather.getCountry().getAlpha2Code().toLowerCase()).append(context.getString(R.string.png_post_fix)).toString();
