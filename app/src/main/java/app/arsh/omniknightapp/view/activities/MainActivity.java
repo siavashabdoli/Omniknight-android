@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override public void loadCities(List<Country> countryList) {
     weatherFragment = new WeatherListFragment()
         .setCountryList(countryList)
-        .setPresenterReady(presenterReady);
+        .setPresenterReadyCallback(presenterReady);
 
     ViewUtils.addFragment(getSupportFragmentManager()
         , weatherFragment
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override public void loadNoCityView() {
     weatherFragment = new WeatherListFragment()
         .setCountryList(null)
-        .setPresenterReady(presenterReady);
+        .setPresenterReadyCallback(presenterReady);
     ViewUtils.addFragment(getSupportFragmentManager()
         ,weatherFragment
         , R.id.content_frame);

@@ -24,7 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.ArrayList;
 import java.util.List;
-import rx.Observable;
 import rx.functions.Action1;
 
 /**
@@ -44,14 +43,14 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
   private WeatherListPresenter presenter;
   private WeatherAdapter adapter;
 
-  private Action1 presenterReady;
+  private Action1 presenterReadyCallback;
 
   public WeatherListFragment() {
     // Required empty public constructor
   }
 
-  public WeatherListFragment setPresenterReady(Action1 presenterReady) {
-    this.presenterReady = presenterReady;
+  public WeatherListFragment setPresenterReadyCallback(Action1 presenterReady) {
+    this.presenterReadyCallback = presenterReady;
     return this;
   }
 
@@ -77,7 +76,7 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     }
 
     presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
-    presenter.setPresenterReady(presenterReady);
+    presenter.setPresenterReadyCallback(presenterReadyCallback);
     presenter.onCreateViewFinished();
 
     return view;

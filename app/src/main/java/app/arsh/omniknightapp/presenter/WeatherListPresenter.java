@@ -4,10 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import app.arsh.omniknightapp.Omniknight;
 import app.arsh.omniknightapp.model.entity.Weather;
+import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
-import app.arsh.omniknightapp.view.fragments.WeatherListFragment;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -26,8 +26,9 @@ public class WeatherListPresenter extends BasePresenter {
   private List<Country> countryList;
   private AppCompatActivity activity;
   @Inject RESTClient client;
+  @Inject DBClient dbClient;
 
-  private Action1 presenterReady;
+  private Action1 presenterReadyCallback;
 
   public WeatherListPresenter(AppCompatActivity activity, WeatherListInterface listener, List<Country> countryList) {
     this.activity = activity;
@@ -37,12 +38,12 @@ public class WeatherListPresenter extends BasePresenter {
 
   }
 
-  public Action1 getPresenterReady() {
-    return presenterReady;
+  public Action1 getPresenterReadyCallback() {
+    return presenterReadyCallback;
   }
 
-  public void setPresenterReady(Action1 presenterReady) {
-    this.presenterReady = presenterReady;
+  public void setPresenterReadyCallback(Action1 presenterReady) {
+    this.presenterReadyCallback = presenterReady;
   }
 
   @Override protected void setupView() {
@@ -61,7 +62,7 @@ public class WeatherListPresenter extends BasePresenter {
 
     listener.showProgress();
 
-    Observable.just(true).subscribe(getPresenterReady(), err -> {
+    Observable.just(true).subscribe(getPresenterReadyCallback(), err -> {
       Log.v(getClass().getSimpleName(), err.getLocalizedMessage());
     });
 
