@@ -1,6 +1,7 @@
 package app.arsh.omniknightapp.view.activities;
 
 import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
     presenter.onOptionsItemSelected(item);
     return super.onOptionsItemSelected(item);
   }
@@ -125,6 +125,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @Override public void unregisterListeners() {
     if (locationManager != null) {
       locationManager.removeListener();
+    }
+  }
+
+  @Override public void enterEditMode() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      MenuItem menuItem = toolbar.getMenu().getItem(0);
+      menuItem.setIcon(getDrawable(R.drawable.close_circle));
+    }
+  }
+
+  @Override public void exitEditMode() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      MenuItem menuItem = toolbar.getMenu().getItem(0);
+      menuItem.setIcon(getDrawable(R.drawable.tooltip_edit));
     }
   }
 

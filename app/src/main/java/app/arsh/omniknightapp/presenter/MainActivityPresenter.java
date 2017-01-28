@@ -93,8 +93,10 @@ public class MainActivityPresenter extends BasePresenter
           if (weatherListPresenterSoftReference.get() != null) {
             if (!editMode) {
               weatherListPresenterSoftReference.get().recyclerViewEnterEditMode();
+              viewListener.enterEditMode();
             } else {
               weatherListPresenterSoftReference.get().recyclerViewExitEditMode();
+              viewListener.exitEditMode();
             }
             editMode = !editMode;
           }

@@ -16,4 +16,7 @@ public interface MainActivityInterface {
   void loadCountrySelectionFragment();
   void registerListeners();
   void unregisterListeners();
+
+  void enterEditMode();
+  void exitEditMode();
 }
