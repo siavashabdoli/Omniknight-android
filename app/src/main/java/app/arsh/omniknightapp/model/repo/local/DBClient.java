@@ -56,6 +56,19 @@ public class DBClient {
         }
     }
 
+    public void removeCountryList(List<Country> countries) {
+        CountryDao countryDao = daoSession.getCountryDao();
+        for (Country country: countries) {
+            List<Country> inDB = daoSession.getCountryDao().queryBuilder()
+                .where(CountryDao.Properties.Name.in(country.getName())).list();
+            if (inDB.size() > 0) {
+                countryDao.delete(inDB.get(0));
+                if (countries.size() > 0) Observable.just(country).subscribe(countryChangeObserver);
+            }
+        }
+
+    }
+
     public List<Country> getCountries() {
         return daoSession.getCountryDao().loadAll();
     }

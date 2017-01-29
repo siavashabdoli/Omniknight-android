@@ -69,7 +69,7 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     }
 
     @Override public void onNext(Weather weather) {
-      Log.v(getClass().getSimpleName(), weather.getCountry().getName());
+      presenter.addItemToRemoveList(weather);
     }
   };
 

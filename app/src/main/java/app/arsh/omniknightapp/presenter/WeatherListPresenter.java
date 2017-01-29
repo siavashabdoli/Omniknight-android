@@ -8,12 +8,15 @@ import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
+import app.arsh.omniknightapp.view.activities.MainActivity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import rx.Observable;
+import rx.Observer;
 import rx.functions.Action1;
 
 /**
@@ -28,6 +31,21 @@ public class WeatherListPresenter extends BasePresenter {
   @Inject RESTClient client;
   @Inject DBClient dbClient;
 
+  private ArrayList<Country> removableCountries = new ArrayList<>();
+  private Observer<Country> countryObserver = new Observer<Country>() {
+    @Override public void onCompleted() {
+
+    }
+
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(Country country) {
+      ((MainActivity)activity).getPresenter().updateView();
+    }
+  };
+
   private Action1 presenterReadyCallback;
 
   public WeatherListPresenter(AppCompatActivity activity, WeatherListInterface listener, List<Country> countryList) {
@@ -35,6 +53,7 @@ public class WeatherListPresenter extends BasePresenter {
     this.listener = listener;
     this.countryList = countryList;
     ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
+    dbClient.setCountryChangeObserver(countryObserver);
 
   }
 
@@ -88,6 +107,11 @@ public class WeatherListPresenter extends BasePresenter {
   }
 
   public void recyclerViewExitEditMode() {
+    dbClient.removeCountryList(removableCountries);
     listener.recyclerViewExitEditMode();
+  }
+
+  public void addItemToRemoveList(Weather weather) {
+    removableCountries.add(weather.getCountry());
   }
 }
