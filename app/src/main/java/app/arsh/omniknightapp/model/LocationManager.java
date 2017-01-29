@@ -32,7 +32,6 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
   }
 
   protected synchronized void buildGoogleApiClient() {
-    Toast.makeText(this.activity, "buildGoogleApiClient", Toast.LENGTH_SHORT).show();
     mGoogleApiClient = new GoogleApiClient.Builder(this.activity).addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
@@ -40,7 +39,6 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
   }
 
   @Override public void onConnected(Bundle bundle) {
-    Toast.makeText(this.activity, "onConnected", Toast.LENGTH_SHORT).show();
 
     mLocationRequest = new LocationRequest();
     mLocationRequest.setInterval(10);
@@ -60,12 +58,10 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks, Goo
 
   @Override
   public void onConnectionSuspended(int i) {
-    Toast.makeText(this.activity,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onConnectionFailed(ConnectionResult connectionResult) {
-    Toast.makeText(this.activity,"onConnectionFailed",Toast.LENGTH_SHORT).show();
   }
 
   @Override
