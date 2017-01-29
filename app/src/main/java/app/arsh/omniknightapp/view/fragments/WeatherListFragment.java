@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,13 @@ import app.arsh.omniknightapp.presenter.WeatherListPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import app.arsh.omniknightapp.view.adapters.InsetDivider;
 import app.arsh.omniknightapp.view.adapters.WeatherAdapter;
+import app.arsh.omniknightapp.view.utils.WeatherAdapterCallBack;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.ArrayList;
 import java.util.List;
-import rx.Observer;
 import rx.functions.Action1;
 
 /**
@@ -44,34 +43,6 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
   private WeatherListPresenter presenter;
   private WeatherAdapter adapter;
-
-  private Observer<Weather> clickedWeather = new Observer<Weather>() {
-    @Override public void onCompleted() {
-
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Weather weather) {
-
-    }
-  };
-
-  private Observer<Weather> checkBoxChangedWeather = new Observer<Weather>() {
-    @Override public void onCompleted() {
-
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Weather weather) {
-      presenter.addItemToRemoveList(weather);
-    }
-  };
 
   private Action1 presenterReadyCallback;
 
@@ -92,7 +63,8 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
     View view = inflater.inflate(R.layout.fragment_city_list, container, false);
     unbinder = ButterKnife.bind(this, view);
-
+    presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
+    
     if (countryList == null || countryList.size() == 0) {
       displayNoCityAvailableImages();
     } else {
@@ -101,11 +73,15 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
       weatherList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
       weatherList.addItemDecoration(getItemDecorator());
 
-      adapter = new WeatherAdapter(weathersList, clickedWeather, checkBoxChangedWeather);
+      adapter = new WeatherAdapter(weathersList, new WeatherAdapterCallBack<>().getClickedWeather()
+          , new WeatherAdapterCallBack<>()
+          .setPresenter(presenter)
+          .getCheckBoxChangedWeather());
+
       weatherList.setAdapter(adapter);
     }
 
-    presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
+
     presenter.setPresenterReadyCallback(presenterReadyCallback);
     presenter.onCreateViewFinished();
 
