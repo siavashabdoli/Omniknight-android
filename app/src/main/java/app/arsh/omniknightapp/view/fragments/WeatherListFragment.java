@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import java.util.ArrayList;
 import java.util.List;
+import rx.Observer;
 import rx.functions.Action1;
 
 /**
@@ -42,6 +44,34 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
   private WeatherListPresenter presenter;
   private WeatherAdapter adapter;
+
+  private Observer<Weather> clickedWeather = new Observer<Weather>() {
+    @Override public void onCompleted() {
+
+    }
+
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(Weather weather) {
+
+    }
+  };
+
+  private Observer<Weather> checkBoxChangedWeather = new Observer<Weather>() {
+    @Override public void onCompleted() {
+
+    }
+
+    @Override public void onError(Throwable e) {
+
+    }
+
+    @Override public void onNext(Weather weather) {
+      Log.v(getClass().getSimpleName(), weather.getCountry().getName());
+    }
+  };
 
   private Action1 presenterReadyCallback;
 
@@ -71,7 +101,7 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
       weatherList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
       weatherList.addItemDecoration(getItemDecorator());
 
-      adapter = new WeatherAdapter(weathersList, null);
+      adapter = new WeatherAdapter(weathersList, clickedWeather, checkBoxChangedWeather);
       weatherList.setAdapter(adapter);
     }
 

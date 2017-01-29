@@ -5,28 +5,35 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.view.adapters.viewholder.WeatherViewHolder;
 import com.jakewharton.rxbinding.view.RxView;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import rx.Observable;
 import rx.Observer;
 
 /**
  * Created by arash on 10/21/16.
  */
 
-public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
+public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder>
+    implements CompoundButton.OnCheckedChangeListener {
 
     private Context context;
     private List<Weather> weathers;
     private Observer<Weather> onClickSubject;
+    private Observer<Weather> onCheckboxChangeSubject;
     private Boolean editMode;
 
-    public WeatherAdapter(List<Weather> weathers, Observer<Weather> onClickSubject) {
+    private final static double KELVIN_COST = 273.15;
+
+    public WeatherAdapter(List<Weather> weathers, Observer<Weather> onClickSubject, Observer<Weather> onCheckboxChangeSubject) {
         this.weathers = weathers;
         this.onClickSubject = onClickSubject;
+        this.onCheckboxChangeSubject = onCheckboxChangeSubject;
     }
 
     public void setEditMode(Boolean editMode) {
@@ -91,4 +98,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
         return weathers == null ? 0 : weathers.size();
     }
 
+    @Override public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b) {
+            Observable.just(weathers.get((Integer) compoundButton.getTag()))
+                .subscribe(onCheckboxChangeSubject);
+        }
+    }
 }
