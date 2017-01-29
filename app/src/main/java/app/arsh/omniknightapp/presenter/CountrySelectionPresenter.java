@@ -11,6 +11,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
+import app.arsh.omniknightapp.view.utils.CountrySelectionAdapterCallBack;
 import app.arsh.omniknightapp.view.utils.GeneralUtils;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,25 +32,13 @@ public class CountrySelectionPresenter extends BasePresenter {
   private Call<List<Country>> countryService;
   @Inject RESTClient client;
   @Inject DBClient dbClient;
-  private Observer<Country> countryObserver = new Observer<Country>() {
-    @Override public void onCompleted() {
-
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Country country) {
-      ((MainActivity)activity).getPresenter().updateView();
-    }
-  };
 
   public CountrySelectionPresenter(@NonNull AppCompatActivity activity, CountrySelectionInterface listener) {
     this.activity = activity;
     this.listener = listener;
     ((Omniknight) activity.getApplication()).getAppComponent().inject(this);
-    dbClient.setCountryChangeObserver(countryObserver);
+    dbClient.setCountryChangeObserver(new CountrySelectionAdapterCallBack<>().
+        setPresenter(this, activity).getCountryObserver());
 
   }
 
@@ -104,6 +93,5 @@ public class CountrySelectionPresenter extends BasePresenter {
     activity = null;
     dbClient = null;
     client = null;
-    countryObserver = null;
   }
 }

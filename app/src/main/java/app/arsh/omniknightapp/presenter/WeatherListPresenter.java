@@ -58,7 +58,7 @@ public class WeatherListPresenter extends BasePresenter {
 
   }
 
-  public Action1 getPresenterReadyCallback() {
+  private Action1 getPresenterReadyCallback() {
     return presenterReadyCallback;
   }
 
