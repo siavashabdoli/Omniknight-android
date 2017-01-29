@@ -64,7 +64,7 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     View view = inflater.inflate(R.layout.fragment_city_list, container, false);
     unbinder = ButterKnife.bind(this, view);
     presenter = new WeatherListPresenter((AppCompatActivity) getActivity(), this, countryList);
-    
+
     if (countryList == null || countryList.size() == 0) {
       displayNoCityAvailableImages();
     } else {
@@ -80,7 +80,6 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
 
       weatherList.setAdapter(adapter);
     }
-
 
     presenter.setPresenterReadyCallback(presenterReadyCallback);
     presenter.onCreateViewFinished();
