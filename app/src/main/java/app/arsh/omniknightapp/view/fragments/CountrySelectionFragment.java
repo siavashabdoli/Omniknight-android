@@ -73,10 +73,6 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
     cloudImageView.setVisibility(View.GONE);
   }
 
-  @Override public void hideShowInternetConnectionProblem(Error error) {
-
-  }
-
   @Override public void loadCountries(List<Country> countryList) {
     CountriesAdapter countriesAdapter = new CountriesAdapter(countryList, countrySelected);
 

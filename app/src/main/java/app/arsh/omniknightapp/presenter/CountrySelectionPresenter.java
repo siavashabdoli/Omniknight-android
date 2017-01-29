@@ -11,6 +11,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
+import app.arsh.omniknightapp.view.utils.GeneralUtils;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -53,6 +54,11 @@ public class CountrySelectionPresenter extends BasePresenter {
   }
 
   @Override public void onCreateViewFinished() {
+    if (!GeneralUtils.isNetworkAvailable(activity)) {
+      ((MainActivity) activity).showNoInternetConnection();
+      listener.dismissSelf();
+      return;
+    }
     countryService = client.getAllCountriesService();
     countryService.enqueue(new Callback<List<Country>>() {
       @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {

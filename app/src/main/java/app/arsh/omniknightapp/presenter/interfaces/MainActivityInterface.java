@@ -11,7 +11,8 @@ public interface MainActivityInterface {
 
   void loadCities(List<Country> countryList);
   void loadNoCityView();
-  void loadErrorView();
+
+  void showNoInternetConnection();
 
   void loadCountrySelectionFragment();
   void registerListeners();

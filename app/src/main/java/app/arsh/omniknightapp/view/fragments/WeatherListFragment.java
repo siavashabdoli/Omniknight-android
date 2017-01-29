@@ -117,10 +117,6 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
     imageViewNoCountry.setVisibility(View.GONE);
   }
 
-  @Override public void showNoInternetConnection() {
-
-  }
-
   @Override public void recyclerViewEnterEditMode() {
     adapter.setEditMode(true);
     adapter.notifyDataSetChanged();

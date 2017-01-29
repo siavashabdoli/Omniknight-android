@@ -9,6 +9,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
+import app.arsh.omniknightapp.view.utils.GeneralUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -89,6 +90,10 @@ public class WeatherListPresenter extends BasePresenter {
       return;
     }
     for (Country country : countryList) {
+      if (!GeneralUtils.isNetworkAvailable(activity)) {
+        ((MainActivity) activity).showNoInternetConnection();
+        return;
+      }
       client.getWeatherWithCountry(country).enqueue(new Callback<Weather>() {
         @Override public void onResponse(Call<Weather> call, Response<Weather> response) {
           listener.loadWeatherList(response.body().setCountry(country));
@@ -96,7 +101,7 @@ public class WeatherListPresenter extends BasePresenter {
         }
 
         @Override public void onFailure(Call<Weather> call, Throwable t) {
-
+          listener.showError(new Error(t.getLocalizedMessage()));
         }
       });
     }

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.LocationManager;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
@@ -96,8 +97,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     pointerImageView.setAnimation(ViewUtils.BackForwardAnimate(100));
   }
 
-  @Override public void loadErrorView() {
-
+  @Override public void showNoInternetConnection() {
+    Toast.makeText(getApplicationContext(),
+        getString(R.string.no_internet), Toast.LENGTH_LONG).show();
   }
 
   @Override public void loadCountrySelectionFragment() {
