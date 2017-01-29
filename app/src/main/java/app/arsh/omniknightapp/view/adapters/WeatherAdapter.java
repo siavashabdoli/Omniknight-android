@@ -59,13 +59,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         final Weather weather = weathers.get(position);
         holder.getCityName().setText(weather.getName()+" ("+weather.getCountry().getName()+")");
-        weather.getMain().setTemp(weather.getMain().getTemp()-273.15);
-        weather.getMain().setTempMin(weather.getMain().getTempMin()-273.15);
-        weather.getMain().setTempMax(weather.getMain().getTempMax()-273.15);
-        holder.getWeatherCondition().setText(String.valueOf(weather.getMain().getTemp().intValue())
-            +" ("+weather.getMain().getTempMin().intValue()
-            +" to "+weather.getMain().getTempMin().intValue()+") Celsius");
+
+        holder.getWeatherCondition().setText((int)(weather.getMain().getTemp().intValue()-KELVIN_COST)
+            +" ("+(int)(weather.getMain().getTempMin()-KELVIN_COST)
+            +" to "+(int)(weather.getMain().getTempMax().intValue()-KELVIN_COST)+") Celsius");
+
         holder.getcityWeatherDescriptionTextView().setText(weather.getWeather().get(0).getDescription());
+        holder.getRemoveCheckBox().setTag(position);
+        holder.getRemoveCheckBox().setOnCheckedChangeListener(this);
 
         if (getEditMode()) holder.getRemoveCheckBox().setVisibility(View.VISIBLE);
         else  holder.getRemoveCheckBox().setVisibility(View.GONE);
