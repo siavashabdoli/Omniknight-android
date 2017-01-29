@@ -96,5 +96,7 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
   @Override public void onDestroy() {
     super.onDestroy();
     unbinder.unbind();
+    presenter.dismissed();
+    presenter = null;
   }
 }

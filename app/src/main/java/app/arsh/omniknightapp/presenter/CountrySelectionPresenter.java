@@ -27,6 +27,7 @@ public class CountrySelectionPresenter extends BasePresenter {
   private static final String TAG = CountrySelectionPresenter.class.getSimpleName();
   private CountrySelectionInterface listener;
   private AppCompatActivity activity;
+  private Call<List<Country>> countryService;
   @Inject RESTClient client;
   @Inject DBClient dbClient;
   private Observer<Country> countryObserver = new Observer<Country>() {
@@ -52,20 +53,24 @@ public class CountrySelectionPresenter extends BasePresenter {
   }
 
   @Override public void onCreateViewFinished() {
-
-    client.getAllCountriesService().enqueue(new Callback<List<Country>>() {
+    countryService = client.getAllCountriesService();
+    countryService.enqueue(new Callback<List<Country>>() {
       @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-        Log.d(TAG, "onResponse: "+response.toString());
-        listener.hideProgressBar();
-        listener.setupRecyclerView();
-        listener.loadCountries(response.body());
+        if (!call.isCanceled()) {
+          Log.d(TAG, "onResponse: " + response.toString());
+          listener.hideProgressBar();
+          listener.setupRecyclerView();
+          listener.loadCountries(response.body());
+        }
       }
 
       @Override public void onFailure(Call<List<Country>> call, Throwable t) {
-        Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-        listener.hideProgressBar();
-        listener.dismissSelf();
-        Toast.makeText(activity, activity.getString(R.string.error), Toast.LENGTH_LONG).show();
+        if (!call.isCanceled()) {
+          Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+          listener.hideProgressBar();
+          listener.dismissSelf();
+          Toast.makeText(activity, activity.getString(R.string.error), Toast.LENGTH_LONG).show();
+        }
       }
     });
     listener.showProgressBar();
@@ -86,5 +91,13 @@ public class CountrySelectionPresenter extends BasePresenter {
   public void countrySelected(Country o) {
     dbClient.addNewCountry(o);
     listener.dismissSelf();
+  }
+
+  public void dismissed() {
+    if (countryService != null) countryService.cancel();
+    activity = null;
+    dbClient = null;
+    client = null;
+    countryObserver = null;
   }
 }
