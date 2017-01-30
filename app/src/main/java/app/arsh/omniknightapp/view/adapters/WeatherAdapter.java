@@ -75,8 +75,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherViewHolder>
         holder.getRemoveCheckBox().setTag(position);
         holder.getRemoveCheckBox().setOnCheckedChangeListener(this);
 
-        if (getEditMode()) holder.getRemoveCheckBox().setVisibility(View.VISIBLE);
-        else  holder.getRemoveCheckBox().setVisibility(View.GONE);
+        if (getEditMode()) {
+          holder.getRemoveCheckBox().setVisibility(View.VISIBLE);
+        }
+        else  {
+          holder.getRemoveCheckBox().setChecked(false);
+          holder.getRemoveCheckBox().setVisibility(View.GONE);
+        }
 
         String imageURL = new StringBuilder().append(context.getString(R.string.images_base_url)).
             append(weather.getCountry().getAlpha2Code().toLowerCase()).append(context.getString(R.string.png_post_fix)).toString();
