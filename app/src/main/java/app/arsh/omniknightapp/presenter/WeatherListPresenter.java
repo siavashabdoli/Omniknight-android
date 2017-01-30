@@ -116,18 +116,20 @@ public class WeatherListPresenter extends BasePresenter {
 
   public void recyclerViewExitEditMode() {
 
-    WeakReference<DBClient> weakClient = new WeakReference<>(dbClient);
+   if (removableCountries.size() > 0) {
+     WeakReference<DBClient> weakClient = new WeakReference<>(dbClient);
 
-    new AlertDialog.Builder(activity)
-        .setTitle("Remove")
-        .setMessage("Confirm deleting countries?")
-        .setPositiveButton("Confirm", (dialogInterface, i) -> {
-          weakClient.get().removeCountryList(removableCountries);
-        })
-        .setNegativeButton("Cancel", (dialogInterface, i) -> {
+     new AlertDialog.Builder(activity)
+         .setTitle("Remove")
+         .setMessage("Confirm deleting countries?")
+         .setPositiveButton("Confirm", (dialogInterface, i) -> {
+           weakClient.get().removeCountryList(removableCountries);
+         })
+         .setNegativeButton("Cancel", (dialogInterface, i) -> {
 
-        })
-        .show();
+         })
+         .show();
+   }
     listener.recyclerViewExitEditMode();
   }
 
