@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.LocationManager;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
+import app.arsh.omniknightapp.presenter.WeatherListPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
 import app.arsh.omniknightapp.view.fragments.WeatherListFragment;
 import app.arsh.omniknightapp.view.fragments.CountrySelectionFragment;
@@ -142,6 +144,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
       MenuItem menuItem = toolbar.getMenu().getItem(0);
       menuItem.setIcon(getDrawable(R.drawable.tooltip_edit));
     }
+  }
+
+  @Override public void confirmDeletingItems() {
+
+    WeakReference<WeatherListPresenter> weakReference = new WeakReference<>(weatherFragment.getPresenter());
+
+    new AlertDialog.Builder(this)
+        .setTitle("Remove")
+        .setMessage("Confirm deleting countries?")
+        .setPositiveButton("Confirm", (dialogInterface, i) -> {
+          weakReference.get().removeSelectedCountries();
+        })
+        .setNegativeButton("Cancel", (dialogInterface, i) -> {
+
+        })
+        .show();
+  }
+
+  @Override public void noCountryWarning() {
+    Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_country_to_edit), Toast.LENGTH_SHORT).show();
   }
 
   private void fabClicked() {

@@ -20,4 +20,8 @@ public interface MainActivityInterface {
 
   void enterEditMode();
   void exitEditMode();
+
+  void confirmDeletingItems();
+
+  void noCountryWarning();
 }

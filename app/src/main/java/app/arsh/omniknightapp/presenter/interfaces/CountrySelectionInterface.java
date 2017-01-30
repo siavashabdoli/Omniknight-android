@@ -15,4 +15,5 @@ public interface CountrySelectionInterface {
   void setupRecyclerView();
   void dismissSelf();
 
+  void toastErrorHappened();
 }

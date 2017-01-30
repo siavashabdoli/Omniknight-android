@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import app.arsh.omniknightapp.R;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
@@ -87,6 +88,10 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
 
   @Override public void dismissSelf() {
     dismiss();
+  }
+
+  @Override public void toastErrorHappened() {
+    Toast.makeText(getActivity(), getActivity().getString(R.string.error), Toast.LENGTH_LONG).show();
   }
 
   @Override public void onDestroy() {
