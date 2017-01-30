@@ -1,5 +1,7 @@
 package app.arsh.omniknightapp.presenter;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import app.arsh.omniknightapp.Omniknight;
@@ -10,6 +12,7 @@ import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
 import app.arsh.omniknightapp.view.utils.GeneralUtils;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -112,7 +115,20 @@ public class WeatherListPresenter extends BasePresenter {
   }
 
   public void recyclerViewExitEditMode() {
-    dbClient.removeCountryList(removableCountries);
+
+    WeakReference<DBClient> weakClient = new WeakReference<>(dbClient);
+
+    new AlertDialog.Builder(activity)
+        .setTitle("Remove")
+        .setMessage("Confirm deleting countries?")
+        .setPositiveButton("Confirm", (dialogInterface, i) -> {
+          weakClient.get().removeCountryList(removableCountries);
+          weakClient = null;
+        })
+        .setNegativeButton("Cancel", (dialogInterface, i) -> {
+
+        })
+        .show();
     listener.recyclerViewExitEditMode();
   }
 
