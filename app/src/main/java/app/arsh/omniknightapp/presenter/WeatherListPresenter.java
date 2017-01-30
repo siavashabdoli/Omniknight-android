@@ -12,6 +12,7 @@ import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import app.arsh.omniknightapp.view.activities.MainActivity;
 import app.arsh.omniknightapp.view.utils.GeneralUtils;
+import app.arsh.omniknightapp.view.utils.WeatherListPresenterCallBack;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +37,6 @@ public class WeatherListPresenter extends BasePresenter {
   @Inject DBClient dbClient;
 
   private ArrayList<Country> removableCountries = new ArrayList<>();
-  private Observer<Country> countryObserver = new Observer<Country>() {
-    @Override public void onCompleted() {
-
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Country country) {
-      ((MainActivity)activity).getPresenter().updateView();
-    }
-  };
 
   private Action1 presenterReadyCallback;
 
@@ -57,7 +45,8 @@ public class WeatherListPresenter extends BasePresenter {
     this.listener = listener;
     this.countryList = countryList;
     ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
-    dbClient.setCountryChangeObserver(countryObserver);
+    dbClient.setCountryChangeObserver(new WeatherListPresenterCallBack(activity)
+        .getCountryObserver());
 
   }
 
