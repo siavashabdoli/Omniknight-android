@@ -3,6 +3,7 @@ package app.arsh.omniknightapp.presenter;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import app.arsh.omniknightapp.Omniknight;
+import app.arsh.omniknightapp.model.conductor.Conductor;
 import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
@@ -28,6 +29,7 @@ public class WeatherListPresenter extends BasePresenter {
   private List<Country> countryList;
   @Inject RESTClient client;
   @Inject DBClient dbClient;
+  @Inject Conductor conductor;
   private ArrayList<Country> removableCountries = new ArrayList<>();
   private Action1 presenterReadyCallback;
 
@@ -66,6 +68,7 @@ public class WeatherListPresenter extends BasePresenter {
 
   @Override public void onCreateViewFinished() {
 
+    conductor.addPresenter(this);
     listener.showProgress();
 
     Observable.just(true).subscribe(getPresenterReadyCallback(), err -> {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.presenter.BasePresenter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by arash on 1/31/17.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Conductor<T extends BasePresenter> implements Application.ActivityLifecycleCallbacks {
 
   private static Conductor ourInstance = new Conductor();
-  private ArrayList<T> presenterContainer = new ArrayList<>();
+  private HashMap<String, T> presenterContainer = new HashMap<>();
   private ConductorActivityLifeCycleListener activityListener;
   private AppCompatActivity activity;
   public static Conductor getInstance() {
@@ -28,8 +29,12 @@ public class Conductor<T extends BasePresenter> implements Application.ActivityL
     this.activity.getApplication().registerActivityLifecycleCallbacks(this);
   }
 
-  public void addPresenter(T presnter) {
-    this.presenterContainer.add(presnter);
+  public void addPresenter(T presenter) {
+    this.presenterContainer.put(presenter.getClass().getSimpleName(), presenter);
+  }
+
+  public T getPresenter(Class classType) {
+    return this.presenterContainer.get(classType.getSimpleName());
   }
 
   @Override public void onActivityCreated(Activity activity, Bundle bundle) {

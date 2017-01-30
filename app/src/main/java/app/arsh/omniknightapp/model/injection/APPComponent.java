@@ -2,6 +2,7 @@ package app.arsh.omniknightapp.model.injection;
 
 import android.app.Application;
 import android.content.Context;
+import app.arsh.omniknightapp.model.conductor.Conductor;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
 import app.arsh.omniknightapp.presenter.MainActivityPresenter;
 import app.arsh.omniknightapp.presenter.WeatherListPresenter;
@@ -13,7 +14,7 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-@Component(modules = {DBModule.class,NetModule.class})
+@Component(modules = {DBModule.class,NetModule.class, ConductorModule.class})
 public interface APPComponent {
 
   Application application();

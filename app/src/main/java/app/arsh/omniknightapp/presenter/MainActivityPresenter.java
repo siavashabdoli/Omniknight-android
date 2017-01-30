@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import app.arsh.omniknightapp.Omniknight;
 import app.arsh.omniknightapp.R;
+import app.arsh.omniknightapp.model.conductor.Conductor;
 import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.interfaces.MainActivityInterface;
-import java.lang.ref.SoftReference;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -21,12 +21,12 @@ public class MainActivityPresenter extends BasePresenter {
   private List<Country> countryList;
   private MainActivityInterface viewListener;
   @Inject DBClient dbClient;
-  private SoftReference<WeatherListPresenter> weatherListPresenterSoftReference;
+  @Inject Conductor conductor;
+  private WeatherListPresenter weatherListPresenter;
   private boolean editMode = false;
 
-  public void setWeatherListPresenterSoftReference(
-      WeatherListPresenter weatherListPresenterSoftReference) {
-    this.weatherListPresenterSoftReference = new SoftReference<>(weatherListPresenterSoftReference);
+  public void setWeatherListPresenterReady() {
+    weatherListPresenter = (WeatherListPresenter) conductor.getPresenter(WeatherListPresenter.class);
   }
 
   public MainActivityPresenter(@NonNull MainActivityInterface viewListener,
@@ -34,6 +34,8 @@ public class MainActivityPresenter extends BasePresenter {
 
     this.viewListener = viewListener;
     ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
+    conductor.setCurrentActivity(activity);
+    conductor.addPresenter(this);
   }
 
   @Override protected void setupView() {
@@ -79,22 +81,18 @@ public class MainActivityPresenter extends BasePresenter {
       if (countryList.isEmpty()) {
         viewListener.noCountryWarning();
       } else {
-        if (weatherListPresenterSoftReference != null) {
-          if (weatherListPresenterSoftReference.get() != null) {
-            if (!editMode) {
-              weatherListPresenterSoftReference.get().recyclerViewEnterEditMode();
-              viewListener.enterEditMode();
-            } else {
-              weatherListPresenterSoftReference.get().recyclerViewExitEditMode();
-              if (weatherListPresenterSoftReference.get().getRemovableCountries().size() > 0) {
-                viewListener.confirmDeletingItems();
-              }
-              viewListener.exitEditMode();
+        if (weatherListPresenter != null) {
+          if (!editMode) {
+            weatherListPresenter.recyclerViewEnterEditMode();
+            viewListener.enterEditMode();
+          } else {
+            weatherListPresenter.recyclerViewExitEditMode();
+            if (weatherListPresenter.getRemovableCountries().size() > 0) {
+              viewListener.confirmDeletingItems();
             }
-            editMode = !editMode;
+            viewListener.exitEditMode();
           }
-        }else {
-          //TODO: request for a new presenter!  
+          editMode = !editMode;
         }
       }
     }

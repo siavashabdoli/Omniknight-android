@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   private Action1 presenterReady = callback -> {
     if ((Boolean) callback) {
-      presenter.setWeatherListPresenterSoftReference(weatherFragment.getPresenter());
+      presenter.setWeatherListPresenterReady();
     }
   };
 
