@@ -17,6 +17,7 @@ import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
 import app.arsh.omniknightapp.view.adapters.CountriesAdapter;
+import app.arsh.omniknightapp.view.utils.GeneralUtils;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +60,12 @@ public class CountrySelectionFragment extends DialogFragment implements CountryS
     unbinder = ButterKnife.bind(this, view);
 
     presenter = new CountrySelectionPresenter((AppCompatActivity) getActivity(), this);
-    presenter.onCreateViewFinished();
+    if (GeneralUtils.isNetworkAvailable(getActivity())) {
+      presenter.onCreateViewFinished();
+    } else {
+      Toast.makeText(getActivity(), getString(R.string.no_internet), Toast.LENGTH_LONG).show();
+    }
+
     return view;
   }
 
