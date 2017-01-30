@@ -123,7 +123,6 @@ public class WeatherListPresenter extends BasePresenter {
         .setMessage("Confirm deleting countries?")
         .setPositiveButton("Confirm", (dialogInterface, i) -> {
           weakClient.get().removeCountryList(removableCountries);
-          weakClient = null;
         })
         .setNegativeButton("Cancel", (dialogInterface, i) -> {
 
