@@ -112,6 +112,11 @@ dependencies {
   androidTestCompile 'com.android.support.test:rules:0.5'
 
   compile 'com.karumi:dexter:3.0.0'
+
+  //Leak Canary
+  debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+  releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+  testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
 
 

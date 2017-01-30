@@ -6,6 +6,7 @@ import app.arsh.omniknightapp.model.injection.DBModule;
 import app.arsh.omniknightapp.model.injection.DaggerAPPComponent;
 import app.arsh.omniknightapp.model.injection.NetModule;
 import app.arsh.omniknightapp.model.repo.local.entity.DaoSession;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by arash on 1/4/17.
@@ -24,6 +25,13 @@ public class Omniknight extends Application {
         .dBModule(new DBModule(this))
         .netModule(new NetModule())
         .build();
+
+    if (LeakCanary.isInAnalyzerProcess(this)) {
+      // This process is dedicated to LeakCanary for heap analysis.
+      // You should not init your app in this process.
+      return;
+    }
+    LeakCanary.install(this);
 
 
   }
