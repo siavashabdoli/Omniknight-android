@@ -11,29 +11,19 @@ import rx.Observer;
 
 public class WeatherListPresenterCallBack {
 
-  private AppCompatActivity activity;
+  public Observer<Country> getCountryObserver(AppCompatActivity activity) {
+      return new Observer<Country>() {
+        @Override public void onCompleted() {
 
+        }
 
+        @Override public void onError(Throwable e) {
 
-  private Observer<Country> countryObserver = new Observer<Country>() {
-    @Override public void onCompleted() {
+        }
 
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Country country) {
-      ((MainActivity)activity).getPresenter().updateView();
-    }
-  };
-
-  public WeatherListPresenterCallBack(AppCompatActivity activity) {
-    this.activity = activity;
-  }
-
-  public Observer<Country> getCountryObserver() {
-    return countryObserver;
+        @Override public void onNext(Country country) {
+          ((MainActivity)activity).getPresenter().updateView();
+        }
+      };
   }
 }

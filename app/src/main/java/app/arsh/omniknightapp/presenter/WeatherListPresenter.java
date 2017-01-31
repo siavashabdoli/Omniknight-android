@@ -37,8 +37,8 @@ public class WeatherListPresenter extends BasePresenter {
     this.listener = listener;
     this.countryList = countryList;
     ((Omniknight)activity.getApplication()).getAppComponent().inject(this);
-    dbClient.setCountryChangeObserver(new WeatherListPresenterCallBack(activity)
-        .getCountryObserver());
+    dbClient.setCountryChangeObserver(new WeatherListPresenterCallBack()
+        .getCountryObserver(activity));
 
   }
 

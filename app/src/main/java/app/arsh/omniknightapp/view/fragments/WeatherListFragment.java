@@ -73,10 +73,9 @@ public class WeatherListFragment extends Fragment implements WeatherListInterfac
       weatherList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
       weatherList.addItemDecoration(getItemDecorator());
 
-      adapter = new WeatherAdapter(weathersList, new WeatherAdapterCallBack<>().getClickedWeather()
-          , new WeatherAdapterCallBack<>()
-          .setPresenter(presenter)
-          .getCheckBoxChangedWeather());
+      adapter = new WeatherAdapter(weathersList, new WeatherAdapterCallBack().getClickedWeather()
+          , new WeatherAdapterCallBack()
+          .getCheckBoxChangedWeather(presenter));
 
       weatherList.setAdapter(adapter);
     }

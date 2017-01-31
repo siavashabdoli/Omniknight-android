@@ -31,7 +31,7 @@ public class CountrySelectionPresenter extends BasePresenter {
     this.listener = listener;
     ((Omniknight) activity.getApplication()).getAppComponent().inject(this);
     dbClient.setCountryChangeObserver(new CountrySelectionAdapterCallBack<>().
-        setPresenter(this, activity).getCountryObserver());
+        getCountryObserver(activity));
 
   }
 

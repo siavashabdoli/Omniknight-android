@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.presenter.CountrySelectionPresenter;
 import app.arsh.omniknightapp.view.activities.MainActivity;
+import javax.inject.Inject;
 import rx.Observer;
 
 /**
@@ -12,29 +13,21 @@ import rx.Observer;
 
 public class CountrySelectionAdapterCallBack<T extends Country> {
 
-  private CountrySelectionPresenter presenter;
-  private AppCompatActivity activity;
 
-  public CountrySelectionAdapterCallBack<T> setPresenter(CountrySelectionPresenter presenter, AppCompatActivity appCompatActivity) {
-    this.presenter = presenter;
-    this.activity = appCompatActivity;
-    return this;
+  public Observer<Country> getCountryObserver(AppCompatActivity activity) {
+    return new Observer<Country>() {
+      @Override public void onCompleted() {
+
+      }
+
+      @Override public void onError(Throwable e) {
+
+      }
+
+      @Override public void onNext(Country country) {
+        ((MainActivity)activity).getPresenter().updateView();
+      }
+    };
   }
-  public Observer<Country> getCountryObserver() {
-    return countryObserver;
-  }
 
-  private Observer<Country> countryObserver = new Observer<Country>() {
-    @Override public void onCompleted() {
-
-    }
-
-    @Override public void onError(Throwable e) {
-
-    }
-
-    @Override public void onNext(Country country) {
-      ((MainActivity)activity).getPresenter().updateView();
-    }
-  };
 }
