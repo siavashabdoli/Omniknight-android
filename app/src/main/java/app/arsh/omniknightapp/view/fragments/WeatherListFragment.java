@@ -18,7 +18,7 @@ import app.arsh.omniknightapp.presenter.WeatherListPresenter;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
 import app.arsh.omniknightapp.view.adapters.InsetDivider;
 import app.arsh.omniknightapp.view.adapters.WeatherAdapter;
-import app.arsh.omniknightapp.view.utils.WeatherAdapterCallBack;
+import app.arsh.omniknightapp.miscellaneous.WeatherAdapterCallBack;
 import app.arsh.omniknightapp.view.utils.ViewUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;

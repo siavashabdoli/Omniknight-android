@@ -1,4 +1,4 @@
-package app.arsh.omniknightapp.view.utils;
+package app.arsh.omniknightapp.miscellaneous;
 
 import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;

@@ -9,7 +9,7 @@ import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.WeatherListInterface;
-import app.arsh.omniknightapp.view.utils.WeatherListPresenterCallBack;
+import app.arsh.omniknightapp.miscellaneous.WeatherListPresenterCallBack;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

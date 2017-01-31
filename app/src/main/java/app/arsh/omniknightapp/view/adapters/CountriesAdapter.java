@@ -46,8 +46,6 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountryViewHolder> {
 
         String imageURL = new StringBuilder().append(context.getString(R.string.images_base_url)).
                 append(country.getAlpha2Code().toLowerCase()).append(context.getString(R.string.png_post_fix)).toString();
-        // Use Picasso to load the image
-        // Temporarily have a placeholder in case it's slow to load
         Picasso.with(context)
                 .load(imageURL)
                 .fit()

@@ -1,4 +1,4 @@
-package app.arsh.omniknightapp.view.utils;
+package app.arsh.omniknightapp.miscellaneous;
 
 import app.arsh.omniknightapp.model.entity.Weather;
 import app.arsh.omniknightapp.presenter.WeatherListPresenter;

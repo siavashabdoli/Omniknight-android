@@ -9,7 +9,7 @@ import app.arsh.omniknightapp.model.repo.local.DBClient;
 import app.arsh.omniknightapp.model.repo.local.entity.Country;
 import app.arsh.omniknightapp.model.repo.remote.RESTClient;
 import app.arsh.omniknightapp.presenter.interfaces.CountrySelectionInterface;
-import app.arsh.omniknightapp.view.utils.CountrySelectionAdapterCallBack;
+import app.arsh.omniknightapp.miscellaneous.CountrySelectionAdapterCallBack;
 import java.util.List;
 import javax.inject.Inject;
 import retrofit2.Call;
