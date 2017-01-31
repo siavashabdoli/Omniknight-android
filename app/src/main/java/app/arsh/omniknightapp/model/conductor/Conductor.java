@@ -74,6 +74,7 @@ public class Conductor<T extends BasePresenter> implements Application.ActivityL
 
   @Override public void onActivityStopped(Activity activity) {
     if (activityListener != null) {
+      activity.getApplication().unregisterActivityLifecycleCallbacks(this);
       activityListener.activityStateChanged(ActivityLifeCycle.onActivityStopped);
     }
   }
