@@ -42,14 +42,6 @@ public class MainActivityPresenter extends BasePresenter {
     viewListener.loadCities(countryList);
   }
 
-  @Override protected void showErrorView() {
-
-  }
-
-  @Override protected void showProgressView() {
-
-  }
-
   @Override public void onCreateViewFinished() {
     updateData();
     if (countryList.size() == 0) {

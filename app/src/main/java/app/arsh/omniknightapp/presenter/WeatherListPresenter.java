@@ -58,14 +58,6 @@ public class WeatherListPresenter extends BasePresenter {
 
   }
 
-  @Override protected void showErrorView() {
-    listener.showError(new Error());
-  }
-
-  @Override protected void showProgressView() {
-
-  }
-
   @Override public void onCreateViewFinished() {
 
     conductor.addPresenter(this);

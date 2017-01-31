@@ -64,14 +64,6 @@ public class CountrySelectionPresenter extends BasePresenter {
 
   }
 
-  @Override protected void showErrorView() {
-
-  }
-
-  @Override protected void showProgressView() {
-
-  }
-
   public void countrySelected(Country o) {
     dbClient.addNewCountry(o);
     listener.dismissSelf();
