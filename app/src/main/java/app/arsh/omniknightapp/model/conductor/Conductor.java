@@ -5,6 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import app.arsh.omniknightapp.presenter.BasePresenter;
+import app.arsh.omniknightapp.presenter.MainActivityPresenter;
+import app.arsh.omniknightapp.view.utils.GeneralUtils;
 import java.util.HashMap;
 
 /**
@@ -34,6 +36,16 @@ public class Conductor<T extends BasePresenter> implements Application.ActivityL
 
   public T getPresenter(Class classType) {
     return this.presenterContainer.get(classType.getSimpleName());
+  }
+
+  public Boolean connectionAvailable() {
+    if (GeneralUtils.isNetworkAvailable(activity)) {
+      return true;
+    }
+    else {
+      ((MainActivityPresenter)getPresenter(MainActivityPresenter.class)).showNoInternetConnection();
+      return false;
+    }
   }
 
   @Override public void onActivityCreated(Activity activity, Bundle bundle) {

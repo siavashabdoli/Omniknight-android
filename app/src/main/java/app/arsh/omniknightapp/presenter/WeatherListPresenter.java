@@ -61,26 +61,28 @@ public class WeatherListPresenter extends BasePresenter {
   @Override public void onCreateViewFinished() {
 
     conductor.addPresenter(this);
-    listener.showProgress();
+    if (conductor.connectionAvailable()) {
+      listener.showProgress();
 
-    Observable.just(true).subscribe(getPresenterReadyCallback(), err -> {
-      Log.v(getClass().getSimpleName(), err.getLocalizedMessage());
-    });
-
-    if (countryList == null) {
-      return;
-    }
-    for (Country country : countryList) {
-      client.getWeatherWithCountry(country).enqueue(new Callback<Weather>() {
-        @Override public void onResponse(Call<Weather> call, Response<Weather> response) {
-          listener.loadWeatherList(response.body().setCountry(country));
-          listener.dismissProgress();
-        }
-
-        @Override public void onFailure(Call<Weather> call, Throwable t) {
-          listener.showError(new Error(t.getLocalizedMessage()));
-        }
+      Observable.just(true).subscribe(getPresenterReadyCallback(), err -> {
+        Log.v(getClass().getSimpleName(), err.getLocalizedMessage());
       });
+
+      if (countryList == null) {
+        return;
+      }
+      for (Country country : countryList) {
+        client.getWeatherWithCountry(country).enqueue(new Callback<Weather>() {
+          @Override public void onResponse(Call<Weather> call, Response<Weather> response) {
+            listener.loadWeatherList(response.body().setCountry(country));
+            listener.dismissProgress();
+          }
+
+          @Override public void onFailure(Call<Weather> call, Throwable t) {
+            listener.showError(new Error(t.getLocalizedMessage()));
+          }
+        });
+      }
     }
   }
 

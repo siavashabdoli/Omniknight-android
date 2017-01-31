@@ -93,4 +93,8 @@ public class MainActivityPresenter extends BasePresenter {
   private void updateData() {
     countryList = dbClient.getCountries();
   }
+
+  public void showNoInternetConnection() {
+    viewListener.showNoInternetConnection();
+  }
 }

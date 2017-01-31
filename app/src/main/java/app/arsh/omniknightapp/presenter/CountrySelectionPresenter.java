@@ -40,27 +40,32 @@ public class CountrySelectionPresenter extends BasePresenter {
   @Override public void onCreateViewFinished() {
 
     conductor.addPresenter(this);
-    countryService = client.getAllCountriesService();
-    countryService.enqueue(new Callback<List<Country>>() {
-      @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-        if (!call.isCanceled()) {
-          Log.d(TAG, "onResponse: " + response.toString());
-          listener.hideProgressBar();
-          listener.setupRecyclerView();
-          listener.loadCountries(response.body());
-        }
-      }
 
-      @Override public void onFailure(Call<List<Country>> call, Throwable t) {
-        if (!call.isCanceled()) {
-          Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-          listener.hideProgressBar();
-          listener.toastErrorHappened();
-          listener.dismissSelf();
+    if (conductor.connectionAvailable()) {
+      countryService = client.getAllCountriesService();
+      countryService.enqueue(new Callback<List<Country>>() {
+        @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+          if (!call.isCanceled()) {
+            Log.d(TAG, "onResponse: " + response.toString());
+            listener.hideProgressBar();
+            listener.setupRecyclerView();
+            listener.loadCountries(response.body());
+          }
         }
-      }
-    });
-    listener.showProgressBar();
+
+        @Override public void onFailure(Call<List<Country>> call, Throwable t) {
+          if (!call.isCanceled()) {
+            Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+            listener.hideProgressBar();
+            listener.toastErrorHappened();
+            listener.dismissSelf();
+          }
+        }
+      });
+      listener.showProgressBar();
+    } else {
+      listener.dismissSelf();
+    }
   }
 
   @Override protected void setupView() {
