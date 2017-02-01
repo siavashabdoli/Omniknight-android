@@ -46,7 +46,6 @@ public class CountrySelectionPresenter extends BasePresenter {
       countryService.enqueue(new Callback<List<Country>>() {
         @Override public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
           if (!call.isCanceled()) {
-            Log.d(TAG, "onResponse: " + response.toString());
             listener.hideProgressBar();
             listener.setupRecyclerView();
             listener.loadCountries(response.body());
@@ -55,7 +54,6 @@ public class CountrySelectionPresenter extends BasePresenter {
 
         @Override public void onFailure(Call<List<Country>> call, Throwable t) {
           if (!call.isCanceled()) {
-            Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
             listener.hideProgressBar();
             listener.toastErrorHappened();
             listener.dismissSelf();

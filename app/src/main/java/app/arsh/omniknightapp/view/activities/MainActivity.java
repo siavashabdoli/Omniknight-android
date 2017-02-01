@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the main_menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main_menu, menu);
+
     return true;
   }
 
