@@ -7,5 +7,11 @@
       app:showAsAction="ifRoom"
       android:title="Compose">
   </item>
+  <item
+      android:id="@+id/search"
+      android:icon="@drawable/magnify"
+      app:showAsAction="ifRoom"
+      android:title="Compose">
+  </item>
 
 </menu>
