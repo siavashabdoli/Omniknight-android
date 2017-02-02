@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-      android:id="@+id/extra"
-      android:icon="@drawable/tooltip_edit"
+      android:id="@+id/search"
+      android:icon="@drawable/magnify"
       app:showAsAction="ifRoom"
       android:title="Compose">
   </item>
   <item
-      android:id="@+id/search"
-      android:icon="@drawable/magnify"
+      android:id="@+id/extra"
+      android:icon="@drawable/tooltip_edit"
       app:showAsAction="ifRoom"
       android:title="Compose">
   </item>
