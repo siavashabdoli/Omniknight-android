@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import app.arsh.omniknightapp.R;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
   @BindView(R.id.fab)              FloatingActionButton fab;
   @BindView(R.id.pointerImageView) ImageView pointerImageView;
   @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.searchBarEditText) EditText searchBar;
 
   private MainActivityPresenter presenter;
   private LocationManager locationManager;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+    toolbar.setTitle(getString(R.string.weather));
     setSupportActionBar(toolbar);
     presenter = new MainActivityPresenter(this, this);
 
@@ -165,6 +168,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
   @Override public void noCountryWarning() {
     Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_country_to_edit), Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void showSearchBar() {
+    searchBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideSearchBar() {
+    searchBar.setVisibility(View.GONE);
   }
 
   private void fabClicked() {

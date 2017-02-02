@@ -88,6 +88,9 @@ public class MainActivityPresenter extends BasePresenter {
         }
       }
     }
+    if (menuItem.getItemId() == R.id.search) {
+      viewListener.showSearchBar();
+    }
   }
 
   private void updateData() {

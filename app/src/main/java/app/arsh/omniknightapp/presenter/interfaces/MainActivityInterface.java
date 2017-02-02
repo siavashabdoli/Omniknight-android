@@ -24,4 +24,7 @@ public interface MainActivityInterface {
   void confirmDeletingItems();
 
   void noCountryWarning();
+
+  void showSearchBar();
+  void hideSearchBar();
 }

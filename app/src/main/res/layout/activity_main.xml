@@ -17,6 +17,15 @@
       app:titleTextColor="@android:color/white"
       android:title="@string/weather"
       android:background="?attr/colorPrimary">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/start_searching"
+        android:textColorHint="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        android:id="@+id/searchBarEditText"
+        />
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
