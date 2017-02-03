@@ -24,6 +24,7 @@ public class MainActivityPresenter extends BasePresenter {
   @Inject Conductor conductor;
   private WeatherListPresenter weatherListPresenter;
   private boolean editMode = false;
+  private boolean searchMode = false;
 
   public void setWeatherListPresenterReady() {
     weatherListPresenter = (WeatherListPresenter) conductor.getPresenter(WeatherListPresenter.class);
@@ -89,7 +90,12 @@ public class MainActivityPresenter extends BasePresenter {
       }
     }
     if (menuItem.getItemId() == R.id.search) {
-      viewListener.showSearchBar();
+      if (searchMode) {
+        viewListener.showSearchBar();
+      } else {
+        viewListener.hideSearchBar();
+      }
+      searchMode = !searchMode;
     }
   }
 
