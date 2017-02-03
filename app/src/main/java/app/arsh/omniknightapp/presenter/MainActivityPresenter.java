@@ -90,7 +90,7 @@ public class MainActivityPresenter extends BasePresenter {
       }
     }
     if (menuItem.getItemId() == R.id.search) {
-      if (searchMode) {
+      if (!searchMode) {
         viewListener.showSearchBar();
       } else {
         viewListener.hideSearchBar();
